@@ -47,7 +47,7 @@ const ApplicationList = () => {
     // };
 
   const columns = [
-    { field: 'id', headerName: 'ID', headerAlign: 'center', width: 70 },
+    // { field: 'id', headerName: 'ID', headerAlign: 'center', width: 70 },
     { field: 'name', headerName: 'Name', headerAlign: 'center', flex: 1 },
     { field: 'email', headerName: 'Email', headerAlign: 'center', flex: 1.2 },
     { field: 'asU10DigitID', headerName: 'ASU ID', headerAlign: 'center', width: 120 },

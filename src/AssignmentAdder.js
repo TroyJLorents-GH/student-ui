@@ -22,15 +22,42 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
     const h = parseInt(hours, 10);
     if (isNaN(h)) return 0;
     if (pos === "TA") {
+      if (h === 5 && edu === "MS" && fellow === "No") return 2200;
+      if (h === 5 && edu === "PHD" && fellow === "No") return 2800;
       if (h === 10 && edu === "MS" && fellow === "No") return 6636;
       if (h === 10 && edu === "PHD" && fellow === "No") return 7250;
+      if (h === 15 && edu === "MS" && fellow === "No") return 8500;
+      if (h === 15 && edu === "PHD" && fellow === "No") return 8950;
       if (h === 20 && (edu === "MS" || edu === "Masters") && fellow === "No") return 13272;
       if (h === 20 && edu === "PHD" && fellow === "No") return 14500;
       if (h === 20 && edu === "PHD" && fellow === "Yes") return 13461.24;
+      if (h === 5 && edu === "MS" && fellow === "Yes") return 2500;
+      if (h === 5 && edu === "PHD" && fellow === "Yes") return 3200;
+      if (h === 10 && edu === "MS" && fellow === "Yes") return 6836;
+      if (h === 10 && edu === "PHD" && fellow === "Yes") return 7550;
+      if (h === 15 && edu === "MS" && fellow === "Yes") return 9000;
+      if (h === 15 && edu === "PHD" && fellow === "Yes") return 9550
     }
     if (pos === "TA (GSA) 1 credit") {
       if (h === 10 && edu === "PHD" && fellow === "No") return 7552.5;
       if (h === 20 && edu === "PHD" && fellow === "No") return 16825;
+    }
+    if (pos === "Grader") {
+      if (h === 5 && edu === "MS" && fellow === "No") return 2200;
+      if (h === 5 && edu === "PHD" && fellow === "No") return 2800;
+      if (h === 10 && edu === "MS" && fellow === "No") return 6636;
+      if (h === 10 && edu === "PHD" && fellow === "No") return 7250;
+      if (h === 15 && edu === "MS" && fellow === "No") return 8500;
+      if (h === 15 && edu === "PHD" && fellow === "No") return 8950;
+      if (h === 20 && (edu === "MS" || edu === "Masters") && fellow === "No") return 13272;
+      if (h === 20 && edu === "PHD" && fellow === "No") return 14500;
+      if (h === 20 && edu === "PHD" && fellow === "Yes") return 13461.24;
+      if (h === 5 && edu === "MS" && fellow === "Yes") return 2500;
+      if (h === 5 && edu === "PHD" && fellow === "Yes") return 3200;
+      if (h === 10 && edu === "MS" && fellow === "Yes") return 6836;
+      if (h === 10 && edu === "PHD" && fellow === "Yes") return 7550;
+      if (h === 15 && edu === "MS" && fellow === "Yes") return 9000;
+      if (h === 15 && edu === "PHD" && fellow === "Yes") return 9550
     }
     if (pos === "IA") {
       const base = session === "C" ? 2 : 1;
@@ -74,8 +101,8 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
       Campus: classDetails?.campus || '',
       AcadCareer: classDetails?.acadCareer || '',
       CostCenterKey: costCenter,
-      cum_gpa: studentData?.cumulative_GPA || '',
-      cur_gpa: studentData?.current_GPA || ''
+      cum_gpa: +(parseFloat(studentData?.cumulative_GPA)?.toFixed(2)) || 0,
+      cur_gpa: +(parseFloat(studentData?.current_GPA)?.toFixed(2)) || 0
     };
 
     try {

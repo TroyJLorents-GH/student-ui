@@ -104,6 +104,8 @@ export default function MasterDashboard() {
     { field: 'location', headerName: 'Location', headerAlign: 'center', width: 120 },
     { field: 'campus', headerName: 'Campus', headerAlign: 'center', width: 110 },
     { field: 'classNum', headerName: 'Class #', headerAlign: 'center', width: 110 },
+    { field: 'cur_gpa', headerName: 'Cur GPA', headerAlign: 'center', width: 110 },
+    { field: 'cum_gpa', headerName: 'Cum GPA', headerAlign: 'center', width: 110 },
     { field: 'costCenterKey', headerName: 'Cost Center', headerAlign: 'center', width: 160 },
     { field: 'compensation', headerName: 'Compensation', headerAlign: 'center', width: 140, ...usdPrice },
     {
@@ -145,6 +147,8 @@ export default function MasterDashboard() {
           location: r.location,
           campus: r.campus,
           classNum: r.classNum,
+          cum_gpa: r.cum_gpa,
+          cur_gpa: r.cur_gpa,
           costCenterKey: r.costCenterKey,
           compensation: r.compensation,
           position_Number: r.position_Number || '',
