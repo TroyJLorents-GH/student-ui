@@ -119,9 +119,9 @@ function App() {
 
 const navStyles = {
   navbar: {
-    backgroundColor: '#8c1d40',
+    backgroundColor: '#191970',
     padding: '10px 20px',
-    borderBottom: '10px solid #ffba05'
+    borderBottom: '10px solid #c0c0c0'
   },
   navList: {
     listStyle: 'none',
