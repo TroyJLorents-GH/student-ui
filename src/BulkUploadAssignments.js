@@ -18,7 +18,10 @@ const columnMapping = {
   'CatalogNum': 'CatalogNum',
   'InstructorFirstName': 'InstructorFirstName',
   'InstructorLastName': 'InstructorLastName',
-  'ClassSession': 'ClassSession'
+  'ClassSession': 'ClassSession',
+  'Location': 'Location',
+  'Campus': 'Campus',
+  'AcadCareer': 'AcadCareer'
 };
 
 const BulkUploadAssignments = () => {
@@ -57,7 +60,7 @@ const BulkUploadAssignments = () => {
       const formData = new FormData();
       formData.append("file", file);
   
-      const response = await fetch('http://localhost:5276/api/StudentClassAssignment/upload', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/upload`, {
         method: 'POST',
         body: formData
       });
@@ -77,7 +80,7 @@ const BulkUploadAssignments = () => {
 
       <Box sx={{ mb: 2 }}>
         <Button variant="contained" component="label">
-          Upload Excel (.xlsx)
+          Upload Excel (.xlsx or .csv)
           <input type="file" hidden accept=".xlsx,.csv" onChange={handleFile} />
         </Button>
       </Box>

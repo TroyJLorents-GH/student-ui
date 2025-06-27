@@ -49,7 +49,7 @@ const StudentLookup = ({ setStudentData }) => {
     if (localStudentData) {
       const fetchTotalHours = async () => {
         try {
-          const res = await fetch(`https://localhost:7209/api/StudentClassAssignment/totalhours/${localStudentData.student_ID}`);
+          const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/totalhours/${localStudentData.student_ID}`);
           if (!res.ok) throw new Error('Failed to fetch assigned hours');
           const total = await res.json();
           const remaining = Math.max(20 - total, 0);

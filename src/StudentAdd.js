@@ -27,7 +27,7 @@ const StudentAdd = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch('https://localhost:7209/api/Student', {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/Student`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

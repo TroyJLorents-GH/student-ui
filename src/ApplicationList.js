@@ -24,7 +24,7 @@ const ApplicationList = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await fetch('https://localhost:7209/api/MastersIAGraderApplication');
+        const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/MastersIAGraderApplication`);
         if (!response.ok) throw new Error('Failed to fetch applications');
         const data = await response.json();
         setApplications(data);

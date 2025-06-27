@@ -16,12 +16,13 @@ const ClassLookupCascade = ({ setClassDetails }) => {
   const [localClassDetails, setLocalClassDetails] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
+ 
   useEffect(() => {
     if (selectedTerm) {
       const fetchSubjects = async () => {
         try {
-          const response = await fetch(`https://localhost:7209/api/Class/subjects?term=${selectedTerm}`);
+          console.log('API base is:', process.env.REACT_APP_API_BASE);
+          const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/Class/subjects?term=${selectedTerm}`);
           if (!response.ok) throw new Error('Failed to fetch subjects');
           const data = await response.json();
           setSubjects(data);
@@ -44,7 +45,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
     if (selectedTerm && selectedSubject) {
       const fetchCatalogs = async () => {
         try {
-          const response = await fetch(`https://localhost:7209/api/Class/catalog?term=${selectedTerm}&subject=${encodeURIComponent(selectedSubject)}`);
+          const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/Class/catalog?term=${selectedTerm}&subject=${encodeURIComponent(selectedSubject)}`);
           if (!response.ok) throw new Error('Failed to fetch catalogs');
           const data = await response.json();
           setCatalogs(data);
@@ -65,7 +66,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
     if (selectedTerm && selectedSubject && selectedCatalog) {
       const fetchClassNumbers = async () => {
         try {
-          const response = await fetch(`https://localhost:7209/api/Class/classnumbers?term=${selectedTerm}&subject=${encodeURIComponent(selectedSubject)}&catalogNum=${selectedCatalog}`);
+          const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/Class/classnumbers?term=${selectedTerm}&subject=${encodeURIComponent(selectedSubject)}&catalogNum=${selectedCatalog}`);
           if (!response.ok) throw new Error('Failed to fetch class numbers');
           const data = await response.json();
           setClassNumbers(data);
@@ -85,7 +86,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
       setLoading(true);
       const fetchClassDetails = async () => {
         try {
-          const response = await fetch(`https://localhost:7209/api/Class/details/${encodeURIComponent(selectedClassNum)}?term=${selectedTerm}`);
+          const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/Class/details/${encodeURIComponent(selectedClassNum)}?term=${selectedTerm}`);
           if (!response.ok) throw new Error('Failed to fetch class details');
           const data = await response.json();
           const mergedDetails = {

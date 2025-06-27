@@ -68,7 +68,7 @@ export default function MasterDashboard() {
         ...reviewStatus
       };
   
-      const response = await fetch(`https://localhost:7209/api/StudentClassAssignment/${selectedRow.id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/${selectedRow.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -125,7 +125,7 @@ export default function MasterDashboard() {
   ];
 
   useEffect(() => {
-    fetch('https://localhost:7209/api/StudentClassAssignment')
+    fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to load assignments');
         return res.json();
@@ -167,7 +167,7 @@ export default function MasterDashboard() {
 
   const handleRowUpdate = async (newRow) => {
     try {
-      const response = await fetch(`https://localhost:7209/api/StudentClassAssignment/${newRow.id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/${newRow.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

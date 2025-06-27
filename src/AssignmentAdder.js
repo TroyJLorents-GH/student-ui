@@ -21,6 +21,11 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
   const calculateComp = (pos, hours, edu, fellow, session) => {
     const h = parseInt(hours, 10);
     if (isNaN(h)) return 0;
+
+    edu = edu?.trim().toUpperCase();
+    
+    console.log({ pos, h, edu, fellow });
+
     if (pos === "TA") {
       if (h === 5 && edu === "MS" && fellow === "No") return 2200;
       if (h === 5 && edu === "PHD" && fellow === "No") return 2800;
@@ -106,7 +111,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
     };
 
     try {
-      const res = await fetch('https://localhost:7209/api/StudentClassAssignment', {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
