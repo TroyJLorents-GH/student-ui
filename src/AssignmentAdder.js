@@ -222,7 +222,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
               <TextField 
                 label="Location" 
                 disabled
-                value={`${classDetails.location} - ${classDetails.campus}`} 
+                value={classDetails.campus} 
                 // InputProps={{ readOnly: true }} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 200 }} 
