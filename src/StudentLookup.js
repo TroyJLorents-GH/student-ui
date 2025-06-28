@@ -18,6 +18,8 @@ const StudentLookup = ({ setStudentData }) => {
     setError('');
     setLoading(true);
 
+    console.log("API BASE:", process.env.REACT_APP_API_BASE);
+
     try {
       const trimmedInput = studentIDInput.trim();
       let url = '';
@@ -25,9 +27,9 @@ const StudentLookup = ({ setStudentData }) => {
       if (!trimmedInput) throw new Error('Please enter a Student ID or ASUrite ID');
 
       if (!isNaN(trimmedInput)) {
-        url = `https://localhost:7209/api/StudentLookup/${parseInt(trimmedInput, 10)}`;
+        url = `${process.env.REACT_APP_API_BASE}/api/StudentLookup/${parseInt(trimmedInput, 10)}`;
       } else {
-        url = `https://localhost:7209/api/StudentLookup/${trimmedInput}`;
+        url = `${process.env.REACT_APP_API_BASE}/api/StudentLookup/${trimmedInput}`;
       }
 
       const response = await fetch(url);
