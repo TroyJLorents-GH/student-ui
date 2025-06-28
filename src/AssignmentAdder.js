@@ -6,12 +6,6 @@ import {
 } from '@mui/material';
 import { computeCostCenterKey } from './costCenterRules';
 
-const baseUrl = process.env.REACT_APP_API_BASE;
-if (!baseUrl) {
-  console.error("REACT_APP_API_URL is not defined. Make sure it's set in your .env file.");
-}
-
-
 
 const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
   const [weeklyHours, setWeeklyHours] = useState('');
@@ -228,7 +222,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
               <TextField 
                 label="Location" 
                 disabled
-                value={classDetails.campus} 
+                value={`${classDetails.location} - ${classDetails.campus}`} 
                 // InputProps={{ readOnly: true }} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 200 }} 
