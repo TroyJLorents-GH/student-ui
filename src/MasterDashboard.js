@@ -10,6 +10,13 @@ import {
   Button, FormGroup, FormControlLabel, Checkbox
 } from '@mui/material';
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
+if (!baseUrl) {
+  console.error("REACT_APP_API_URL is not defined. Make sure it's set in your .env file.");
+}
+
+
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',

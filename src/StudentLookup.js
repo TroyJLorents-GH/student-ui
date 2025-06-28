@@ -6,6 +6,13 @@ import {
   Snackbar, Alert, Divider, Stack
 } from '@mui/material';
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
+if (!baseUrl) {
+  console.error("REACT_APP_API_URL is not defined. Make sure it's set in your .env file.");
+}
+
+
 const StudentLookup = ({ setStudentData }) => {
   const [studentIDInput, setStudentIDInput] = useState('');
   const [localStudentData, setLocalStudentData] = useState(null);

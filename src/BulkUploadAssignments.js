@@ -24,6 +24,13 @@ const columnMapping = {
   'AcadCareer': 'AcadCareer'
 };
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
+if (!baseUrl) {
+  console.error("REACT_APP_API_URL is not defined. Make sure it's set in your .env file.");
+}
+
+
 const BulkUploadAssignments = () => {
   const [rows, setRows] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
