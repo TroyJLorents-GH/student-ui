@@ -1,9 +1,0 @@
-{
-    "appSettings": [
-      {
-        "name": "REACT_APP_API_BASE",
-        "value": "https://studenthiringsystem-ccf5djgdg9dpb6ek.westus-01.azurewebsites.net"
-      }
-    ]
-  }
-  
