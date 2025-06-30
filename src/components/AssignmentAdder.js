@@ -4,7 +4,7 @@ import {
   Checkbox, FormControlLabel, Button, Snackbar, Alert, Grid, Divider, Paper,
   Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material';
-import { computeCostCenterKey } from '../costCenterRules';
+import { computeCostCenterKey } from '../utils/costCenterRules';
 
 
 const AssignmentAdder = ({ studentData, classDetails, onReset }) => {

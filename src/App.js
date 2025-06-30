@@ -4,10 +4,10 @@ import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import StudentLookup from './components/StudentLookup';
 import ClassLookupCascade from './components/ClassLookupCascade';
 import AssignmentAdder from './components/AssignmentAdder';
-import ApplicationList from './ApplicationList';
-import Login from './Login';
-import MasterDashboard from './MasterDashboard';
-import BulkUploadAssignments from './BulkUploadAssignments';
+import ApplicationList from './pages/ApplicationList';
+import Login from './pages/Login';
+import MasterDashboard from './pages/MasterDashboard';
+import BulkUploadAssignments from './pages/BulkUploadAssignments';
 
 function App() {
   const [studentData, setStudentData] = useState(null);
