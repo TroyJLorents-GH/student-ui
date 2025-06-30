@@ -1,6 +1,11 @@
 ### Student Hiring System
 - Live Site: https://www.troystaticsite.com
 - API Base: Hosted on Azure App Service
+- [Bulk Upload Data Example](https://github.com/user-attachments/files/20986939/students23.csv)
+- [Bulk_Upload_Template.csv](https://github.com/user-attachments/files/20986975/Bulk_Upload_Template.csv)
+
+
+
 
 ### About Me
 I'm Troy Lorents, a full-stack engineer with 7+ years of experience building applications that solve real-world problems. This project demonstrates my ability to manage a secure, scalable, and user-friendly system from front to back.
