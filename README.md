@@ -44,4 +44,4 @@ A full-stack web application built with React.js (frontend) and connects to a se
 
 ### `Live Demo`
 - Frontend: www.troystaticsite.com
-- Backend (Swagger UI): Student Hiring API
+- Backend (Swagger UI): [Student Hiring API](https://studenthiringsystem-ccf5djgdg9dpb6ek.westus-01.azurewebsites.net/swagger/index.html)
