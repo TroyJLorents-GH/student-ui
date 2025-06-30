@@ -4,7 +4,7 @@ import {
   Checkbox, FormControlLabel, Button, Snackbar, Alert, Grid, Divider, Paper,
   Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material';
-import { computeCostCenterKey } from './costCenterRules';
+import { computeCostCenterKey } from '../costCenterRules';
 
 
 const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
@@ -33,7 +33,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
       if (h === 10 && edu === "PHD" && fellow === "No") return 7250;
       if (h === 15 && edu === "MS" && fellow === "No") return 8500;
       if (h === 15 && edu === "PHD" && fellow === "No") return 8950;
-      if (h === 20 && (edu === "MS" || edu === "Masters") && fellow === "No") return 13272;
+      if (h === 20 && edu === "MS" && fellow === "No") return 13272;
       if (h === 20 && edu === "PHD" && fellow === "No") return 14500;
       if (h === 20 && edu === "PHD" && fellow === "Yes") return 13461.24;
       if (h === 5 && edu === "MS" && fellow === "Yes") return 2500;
@@ -54,7 +54,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
       if (h === 10 && edu === "PHD" && fellow === "No") return 7250;
       if (h === 15 && edu === "MS" && fellow === "No") return 8500;
       if (h === 15 && edu === "PHD" && fellow === "No") return 8950;
-      if (h === 20 && (edu === "MS" || edu === "Masters") && fellow === "No") return 13272;
+      if (h === 20 && edu === "MS" && fellow === "No") return 13272;
       if (h === 20 && edu === "PHD" && fellow === "No") return 14500;
       if (h === 20 && edu === "PHD" && fellow === "Yes") return 13461.24;
       if (h === 5 && edu === "MS" && fellow === "Yes") return 2500;

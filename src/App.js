@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 
-import StudentLookup from './StudentLookup';
-import ClassLookupCascade from './ClassLookupCascade';
-import AssignmentAdder from './AssignmentAdder';
+import StudentLookup from './components/StudentLookup';
+import ClassLookupCascade from './components/ClassLookupCascade';
+import AssignmentAdder from './components/AssignmentAdder';
 import ApplicationList from './ApplicationList';
 import Login from './Login';
 import MasterDashboard from './MasterDashboard';

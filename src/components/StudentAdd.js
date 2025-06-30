@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 const StudentAdd = () => {
-  // State to toggle form visibility
+  // State to toggle form visibility not sure if will impliment yet
   const [showForm, setShowForm] = useState(false);
 
-  // Initial state for a new student record
+  // State for a new student record
   const [student, setStudent] = useState({
     student_ID: '',
     first_Name: '',
@@ -17,12 +17,12 @@ const StudentAdd = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Handler to update fields
+  // Handle rto update fields
   const handleChange = (field, value) => {
     setStudent(prev => ({ ...prev, [field]: value }));
   };
 
-  // Handler to add a new student
+  // Handler to add new student
   const handleAddStudent = async () => {
     setError('');
     setSuccess('');
@@ -39,7 +39,7 @@ const StudentAdd = () => {
       }
       // We don't need to use the returned JSON data here.
       setSuccess('Student added successfully!');
-      // Optionally clear the form after successful submission.
+      // Optionally clear the form after successful submission if we use
       setStudent({
         student_ID: '',
         first_Name: '',
