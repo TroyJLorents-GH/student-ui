@@ -80,7 +80,7 @@ const BulkUploadAssignments = () => {
 
       <Box sx={{ mb: 2 }}>
         <Button variant="contained" component="label">
-          Upload Excel (.xlsx or .csv)
+          Upload .CSV (.csv)
           <input type="file" hidden accept=".xlsx,.csv" onChange={handleFile} />
         </Button>
       </Box>
