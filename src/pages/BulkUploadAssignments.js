@@ -20,8 +20,7 @@ const columnMapping = {
   'InstructorLastName': 'InstructorLastName',
   'ClassSession': 'ClassSession',
   'Location': 'Location',
-  'Campus': 'Campus',
-  'AcadCareer': 'AcadCareer'
+  'Campus': 'Campus'
 };
 
 const BulkUploadAssignments = () => {
