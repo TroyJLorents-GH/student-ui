@@ -156,31 +156,27 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
                 label="Student ID" 
                 disabled
                 value={studentData.student_ID}
-                InputProps={{ readOnly: true }} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 160 }} 
               />
               <TextField 
                 label="Name" 
                 disabled
-                value={`${studentData.first_Name} ${studentData.last_Name}`} 
-                InputProps={{ readOnly: true }} 
+                value={`${studentData.first_Name} ${studentData.last_Name}`}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 200 }} 
               />
               <TextField
                 label="Email" 
                 disabled
-                value={studentData.asU_Email_Adress} 
-                InputProps={{ readOnly: true }} 
+                value={studentData.asU_Email_Adress}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 250 }} 
               />
               <TextField 
                 label="Education Level" 
                 disabled
-                value={studentData.degree} 
-                InputProps={{ readOnly: true }} 
+                value={studentData.degree}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 160 }} 
               />
@@ -198,8 +194,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
               <TextField 
                 label="Course" 
                 disabled
-                value={`${classDetails.subject} - ${classDetails.catalogNum}`} 
-                InputProps={{ readOnly: true }} 
+                value={`${classDetails.subject} - ${classDetails.catalogNum}`}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 180 }} 
               />
@@ -207,7 +202,6 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
                 label="Class #"
                 disabled
                 value={classDetails.classNum}
-                InputProps={{ readOnly: true }} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 120 }} 
               />
@@ -215,31 +209,27 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
                 label="Session" 
                 disabled
                 value={classDetails.session} 
-                InputProps={{ readOnly: true }} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 100 }} 
               />
               <TextField 
                 label="Location" 
                 disabled
-                value={classDetails.location}
-                InputProps={{ readOnly: true }} 
+                value={classDetails.location} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 200 }} 
               />
               <TextField 
                 label="Instructor" 
                 disabled
-                value={`${classDetails.instructorFirstName} ${classDetails.instructorLastName}`} 
-                InputProps={{ readOnly: true }} 
+                value={`${classDetails.instructorFirstName} ${classDetails.instructorLastName}`}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 'auto' }} 
               />
               <TextField 
                 label="Instructor Email" 
                 disabled
-                value={classDetails.instructorEmail} 
-                InputProps={{ readOnly: true }} 
+                value={classDetails.instructorEmail}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 300 }} 
               />
@@ -324,10 +314,22 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
 
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={12} sm={6}>
-          <TextField label="Compensation" value={`$${compensation.toLocaleString()}`} disabled InputLabelProps={{ shrink: true }} fullWidth />
+          <TextField
+           label="Compensation" 
+           value={`$${compensation.toLocaleString()}`} 
+           disabled 
+           InputLabelProps={{ shrink: true }} 
+           fullWidth 
+           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField label="Cost Center Key" value={costCenter} disabled InputLabelProps={{ shrink: true }} fullWidth />
+          <TextField
+           label="Cost Center Key" 
+           value={costCenter} 
+           disabled
+           InputLabelProps={{ shrink: true }} 
+           fullWidth 
+           />
         </Grid>
       </Grid>
 

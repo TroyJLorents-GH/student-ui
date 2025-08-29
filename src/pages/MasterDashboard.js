@@ -93,11 +93,11 @@ export default function MasterDashboard() {
   const columns = [
     { field: 'studentName', headerName: 'Student Name', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 300 },
     { field: 'student_ID', headerName: 'ASU ID', headerAlign: 'center', width: 140 },
-    { field: 'position', headerName: 'Position', headerAlign: 'center', width: 150 },
+    { field: 'position', headerName: 'Position', headerAlign: 'center', width: 130 },
     { field: 'weeklyHours', headerName: 'Hours', headerAlign: 'center', width: 80 },
     { field: 'fultonFellow', headerName: 'Fulton Fellow', headerAlign: 'center', width: 120 },
-    { field: 'email', headerName: 'Email', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 300, filterable: true },
-    { field: 'educationLevel', headerName: 'Education', headerAlign: 'center', width: 120 },
+    { field: 'email', headerName: 'Email', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 250 },
+    { field: 'educationLevel', headerName: 'Education', headerAlign: 'center', width: 105 },
     { field: 'instructorName', headerName: 'Instructor Name', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 300 },
     { field: 'subject', headerName: 'Subject', headerAlign: 'center', width: 100 },
     { field: 'catalogNum', headerName: 'Catalog #', headerAlign: 'center', width: 100, type: 'number' },
@@ -107,8 +107,8 @@ export default function MasterDashboard() {
     { field: 'classNum', headerName: 'Class #', headerAlign: 'center', width: 110 },
     { field: 'cur_gpa', headerName: 'Cur GPA', headerAlign: 'center', width: 110 },
     { field: 'cum_gpa', headerName: 'Cum GPA', headerAlign: 'center', width: 110 },
-    { field: 'costCenterKey', headerName: 'Cost Center', headerAlign: 'center', width: 160 },
-    { field: 'compensation', headerName: 'Compensation', headerAlign: 'center', width: 140, ...usdPrice },
+    { field: 'costCenterKey', headerName: 'Cost Center', headerAlign: 'center', width: 140 },
+    { field: 'compensation', headerName: 'Compensation', headerAlign: 'center', ...usdPrice },
     {
       field: 'review',
       headerName: 'Review',
@@ -122,7 +122,7 @@ export default function MasterDashboard() {
         </Button>
       ),
     },
-    { field: 'position_Number', headerName: 'Position Number', headerAlign: 'center', width: 140, editable: true}
+    { field: 'position_Number', headerName: 'Position Number', headerAlign: 'center', width: 130, editable: true}
   ];
 
   useEffect(() => {
@@ -199,7 +199,7 @@ export default function MasterDashboard() {
 
   return (
     <>
-      <Paper elevation={0} style={{ height: 'fit-content', width: '100%', padding: 10 }}>
+      <Paper elevation={0} style={{ height: 'fit-content', width: '99%', padding: 10 }}>
         <Typography variant="h5" gutterBottom>
           Master Dashboard
         </Typography>
@@ -225,6 +225,7 @@ export default function MasterDashboard() {
           showToolbar
           allowColumnReordering={true}
           processRowUpdate={handleRowUpdate}
+          autoHeight
         />
       </Paper>
 
