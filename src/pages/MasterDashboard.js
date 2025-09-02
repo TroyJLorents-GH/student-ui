@@ -213,8 +213,8 @@ export default function MasterDashboard() {
           pagination
           rows={rows}
           columns={columns}
-          getCellClassName={getCellClassName}
-          loading={loading}
+          //getCellClassName={getCellClassName}
+          //loading={loading}
           initialState={{
             pagination: { paginationModel: { pageSize: 25, page: 0 } },
           }}
