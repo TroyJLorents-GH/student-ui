@@ -14,6 +14,9 @@ import BulkUploadAssignments from './pages/BulkUploadAssignments';
 // import ManageStudentAssignments from './pages/ManageStudentAssignments';
 // import StudentSummaryPage from "./pages/StudentSummaryPage";
 
+import { LicenseInfo } from '@mui/x-license';
+LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_LICENSE_KEY);
+
 function App() {
   const [studentData, setStudentData] = useState(null);
   const [classDetails, setClassDetails] = useState(null);
