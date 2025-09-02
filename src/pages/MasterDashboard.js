@@ -2,9 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import {
-  DataGrid
-} from '@mui/x-data-grid';
+import { DataGridPro } from '@mui/x-data-grid-pro';
 import {
   Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions,
   Button, FormGroup, FormControlLabel, Checkbox
@@ -203,29 +201,30 @@ export default function MasterDashboard() {
         <Typography variant="h5" gutterBottom>
           Master Dashboard
         </Typography>
-        <DataGrid
+        <DataGridPro
           sx={{
-            '& .MuiDataGrid-cell': {
-              textAlign: 'center',
-            },
-            '& .MuiDataGrid-columnHeaderTitle': {
-              fontWeight: 'bold',
-              fontSize: '1.1em',
+            '& .MuiDataGrid-cell': { textAlign: 'center' },
+            '& .MuiDataGrid-columnHeaderTitle': { fontWeight: 'bold', fontSize: '1.1em' },
+            '& .highlight-cell': {
+              backgroundColor: '#fff9c4',
+              fontWeight: 600,
             },
           }}
+          pagination
           rows={rows}
           columns={columns}
+          getCellClassName={getCellClassName}
+          loading={loading}
           initialState={{
-            pagination: {
-              paginationModel: { pageSize: 25, page: 0},
-            },
+            pagination: { paginationModel: { pageSize: 25, page: 0 } },
           }}
           pageSizeOptions={[25, 50, 100]}
           disableSelectionOnClick
+          allowColumnReordering
           showToolbar
-          allowColumnReordering={true}
+          // rowReordering
+          headerFilters
           processRowUpdate={handleRowUpdate}
-          autoHeight
         />
       </Paper>
 
