@@ -49,6 +49,7 @@ jobs:
           REACT_APP_API_BASE: ${{ secrets.REACT_APP_API_BASE }}
           REACT_APP_ALLOWED_EMAILS: ${{ secrets.REACT_APP_ALLOWED_EMAILS }}
           REACT_APP_MASTER_PASSWORD: ${{ secrets.REACT_APP_MASTER_PASSWORD }}
+          REACT_APP_MUI_LICENSE_KEY: ${{ secrets.REACT_APP_MUI_LICENSE_KEY }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -60,3 +61,4 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           action: "close"
+
