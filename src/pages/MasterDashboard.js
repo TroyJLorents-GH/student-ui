@@ -197,34 +197,33 @@ export default function MasterDashboard() {
 
   return (
     <>
-      <Paper elevation={0} style={{ height: 'fit-content', width: 'fit-content', padding: 10 }}>
+      <Paper elevation={0} style={{ height: 'fit-content', width: '99%', padding: 10 }}>
         <Typography variant="h5" gutterBottom>
           Master Dashboard
         </Typography>
         <DataGridPro
           sx={{
-            '& .MuiDataGrid-cell': { textAlign: 'center' },
-            '& .MuiDataGrid-columnHeaderTitle': { fontWeight: 'bold', fontSize: '1.1em' },
-            '& .highlight-cell': {
-              backgroundColor: '#fff9c4',
-              fontWeight: 600,
+            '& .MuiDataGrid-cell': {
+              textAlign: 'center',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 'bold',
+              fontSize: '1.1em',
             },
           }}
-          pagination
           rows={rows}
           columns={columns}
-          //getCellClassName={getCellClassName}
-          //loading={loading}
           initialState={{
-            pagination: { paginationModel: { pageSize: 25, page: 0 } },
+            pagination: {
+              paginationModel: { pageSize: 25, page: 0},
+            },
           }}
           pageSizeOptions={[25, 50, 100]}
           disableSelectionOnClick
-          allowColumnReordering
           showToolbar
-          // rowReordering
-          headerFilters
+          allowColumnReordering={true}
           processRowUpdate={handleRowUpdate}
+          autoHeight
         />
       </Paper>
 
