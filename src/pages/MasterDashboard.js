@@ -197,7 +197,7 @@ export default function MasterDashboard() {
 
   return (
     <>
-      <Paper elevation={0} style={{ height: 'fit-content', width: '99%', padding: 10 }}>
+      <Paper elevation={0} style={{ height: 'fit-content', width: 'fit-content', padding: 10 }}>
         <Typography variant="h5" gutterBottom>
           Master Dashboard
         </Typography>
