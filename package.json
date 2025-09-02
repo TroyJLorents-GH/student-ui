@@ -9,7 +9,6 @@
     "@mui/material": "^7.0.2",
     "@mui/x-data-grid": "^8.1.0",
     "@mui/x-data-grid-pro": "^8.1.0",
-    "@mui/x-telemetry": "^8.11.0",
     "@react-pdf/renderer": "^4.3.0",
     "ag-grid-community": "^33.2.4",
     "ag-grid-react": "^33.2.4",
@@ -19,7 +18,7 @@
     "react-dom": "^19.0.0",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^7.3.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4",
     "xlsx": "^0.18.5"
   },
@@ -46,8 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

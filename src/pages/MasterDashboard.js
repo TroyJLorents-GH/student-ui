@@ -2,7 +2,9 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { DataGridPro } from '@mui/x-data-grid-pro';
+import {
+  DataGrid
+} from '@mui/x-data-grid';
 import {
   Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions,
   Button, FormGroup, FormControlLabel, Checkbox
@@ -201,7 +203,7 @@ export default function MasterDashboard() {
         <Typography variant="h5" gutterBottom>
           Master Dashboard
         </Typography>
-        <DataGridPro
+        <DataGrid
           sx={{
             '& .MuiDataGrid-cell': {
               textAlign: 'center',
