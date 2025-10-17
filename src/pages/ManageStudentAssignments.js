@@ -104,8 +104,8 @@ const ManageStudentAssignments = () => {
         </Grid>
         <Grid item>
           <Button variant="contained" onClick={handleFetch} sx={{
-              backgroundColor: '#8c1d40',
-              '&:hover': { backgroundColor: '#701831' },
+              backgroundColor: '#191970',
+              '&:hover': { backgroundColor: '#0c0c52ff' },
             }}>
             Fetch Students
           </Button>

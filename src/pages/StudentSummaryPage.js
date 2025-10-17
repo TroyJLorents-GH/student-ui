@@ -127,7 +127,7 @@ function AssignmentDetailPanel({ row }) {
       </Stack>
       <Divider sx={{ my: 1 }} />
       <Typography variant="caption" color="text.secondary">
-        Assignment created by SCAI bulk/portal process.
+        Assignment created by bulk/portal process.
       </Typography>
     </Box>
   );
@@ -333,8 +333,8 @@ export default function StudentSummaryPage() {
             onKeyDown={e => e.key === "Enter" && handleLookup()}
           />
           <Button variant="contained" onClick={handleLookup} disabled={!search || loading} sx={{
-              backgroundColor: '#8c1d40',
-              '&:hover': { backgroundColor: '#701831' },
+              backgroundColor: '#1d318cff',
+              '&:hover': { backgroundColor: '#0a0558ff' },
             }}>
             LOOKUP
           </Button>
