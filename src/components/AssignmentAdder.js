@@ -16,15 +16,15 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [assignmentSummary, setAssignmentSummary] = useState(null);
 
-  const session = classDetails?.classSession || classDetails?.session || '';
+  const session = classDetails?.Session || '';
 
   const calculateComp = (pos, hours, edu, fellow, session) => {
     const h = parseInt(hours, 10);
     if (isNaN(h)) return 0;
 
     edu = edu?.trim().toUpperCase();
-    
-    console.log({ pos, h, edu, fellow });
+
+    console.log({ pos, h, edu, fellow, session });
 
     if (pos === "TA") {
       if (h === 5 && edu === "MS" && fellow === "No") return 2200;
@@ -73,8 +73,8 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
     return 0;
   };
 
-  const compensation = calculateComp(position, weeklyHours, studentData?.degree, fultonFellow, session);
-  const costCenter = computeCostCenterKey(position, classDetails?.location, classDetails?.campus, classDetails?.acadCareer);
+  const compensation = calculateComp(position, weeklyHours, studentData?.Degree, fultonFellow, session);
+  const costCenter = computeCostCenterKey(position, classDetails?.Location, classDetails?.Campus, classDetails?.AcadCareer);
 
   const handleSubmit = async () => {
     if (!studentData || !acknowledged) {
@@ -86,28 +86,28 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
     }
 
     const payload = {
-      Student_ID: studentData.student_ID,
+      Student_ID: studentData.Student_ID,
       Position: position,
-      Email: studentData.asU_Email_Adress,
-      First_Name: studentData.first_Name,
-      Last_Name: studentData.last_Name,
-      EducationLevel: studentData.degree,
+      Email: studentData.ASU_Email_Adress,
+      First_Name: studentData.First_Name,
+      Last_Name: studentData.Last_Name,
+      EducationLevel: studentData.Degree,
       Subject: classDetails?.subject || '',
       CatalogNum: classDetails?.catalogNum || '',
       ClassSession: session,
       ClassNum: classDetails?.classNum || '',
       Term: classDetails?.term || '',
-      InstructorFirstName: classDetails?.instructorFirstName || '',
-      InstructorLastName: classDetails?.instructorLastName || '',
+      InstructorFirstName: classDetails?.InstructorFirstName || '',
+      InstructorLastName: classDetails?.InstructorLastName || '',
       WeeklyHours: parseInt(weeklyHours, 10),
       FultonFellow: fultonFellow,
       Compensation: compensation,
-      Location: classDetails?.location || '',
-      Campus: classDetails?.campus || '',
-      AcadCareer: classDetails?.acadCareer || '',
+      Location: classDetails?.Location || '',
+      Campus: classDetails?.Campus || '',
+      AcadCareer: classDetails?.AcadCareer || '',
       CostCenterKey: costCenter,
-      cum_gpa: +(parseFloat(studentData?.cumulative_GPA)?.toFixed(2)) || 0,
-      cur_gpa: +(parseFloat(studentData?.current_GPA)?.toFixed(2)) || 0
+      cum_gpa: +(parseFloat(studentData?.Cumulative_GPA)?.toFixed(2)) || 0,
+      cur_gpa: +(parseFloat(studentData?.Current_GPA)?.toFixed(2)) || 0
     };
 
     try {
@@ -136,7 +136,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
     if (typeof onReset === 'function') onReset(); // call back to App.js
   };
 
-  const studentName = studentData ? `${studentData.first_Name} ${studentData.last_Name}` : '';
+  const studentName = studentData ? `${studentData.First_Name} ${studentData.Last_Name}` : '';
   const classLabel = classDetails ? `${classDetails.subject} ${classDetails.catalogNum}` : '';
   const acknowledgeText = `I agree to hiring ${studentName} for ${position} at $${compensation.toLocaleString()} for ${classLabel}`;
 
@@ -155,28 +155,28 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
               <TextField 
                 label="Student ID" 
                 disabled
-                value={studentData.student_ID}
+                value={studentData.Student_ID}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 160 }} 
               />
               <TextField 
                 label="Name" 
                 disabled
-                value={`${studentData.first_Name} ${studentData.last_Name}`}
+                value={`${studentData.First_Name} ${studentData.Last_Name}`}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 200 }} 
               />
               <TextField
                 label="Email" 
                 disabled
-                value={studentData.asU_Email_Adress}
+                value={studentData.ASU_Email_Adress}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 250 }} 
               />
               <TextField 
                 label="Education Level" 
                 disabled
-                value={studentData.degree}
+                value={studentData.Degree}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 160 }} 
               />
@@ -208,28 +208,28 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
               <TextField 
                 label="Session" 
                 disabled
-                value={classDetails.session} 
+                value={classDetails.Session} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 100 }} 
               />
               <TextField 
                 label="Location" 
                 disabled
-                value={classDetails.location} 
+                value={classDetails.Location} 
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 200 }} 
               />
               <TextField 
                 label="Instructor" 
                 disabled
-                value={`${classDetails.instructorFirstName} ${classDetails.instructorLastName}`}
+                value={`${classDetails.InstructorFirstName} ${classDetails.InstructorLastName}`}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 'auto' }} 
               />
               <TextField 
                 label="Instructor Email" 
                 disabled
-                value={classDetails.instructorEmail}
+                value={classDetails.InstructorEmail}
                 InputLabelProps={{ shrink: true }} 
                 sx={{ width: 300 }} 
               />
@@ -284,7 +284,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
                 <Grid item xs={6}>
                   <TextField
                     label="Cur GPA"
-                    value={studentData?.current_GPA || ''}
+                    value={studentData?.Current_GPA || ''}
                     disabled
                     variant="filled"
                     sx={{ width: 100 }} 
@@ -293,7 +293,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
                 <Grid item xs={6}>
                   <TextField
                     label="Cum GPA"
-                    value={studentData?.cumulative_GPA || ''}
+                    value={studentData?.Cumulative_GPA || ''}
                     variant="filled"
                     sx={{ width: 100 }}
                     disabled
@@ -316,7 +316,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
         <Grid item xs={12} sm={6}>
           <TextField
            label="Compensation" 
-           value={`$${compensation.toLocaleString()}`} 
+           value={`${compensation.toLocaleString()}`} 
            disabled 
            InputLabelProps={{ shrink: true }} 
            fullWidth 

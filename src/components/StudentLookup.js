@@ -52,7 +52,7 @@ const StudentLookup = ({ setStudentData }) => {
     if (localStudentData) {
       const fetchTotalHours = async () => {
         try {
-          const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/totalhours/${localStudentData.student_ID}`);
+          const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/totalhours/${localStudentData.Student_ID}`);
           if (!res.ok) throw new Error('Failed to fetch assigned hours');
           const total = await res.json();
           const remaining = Math.max(20 - total, 0);
@@ -100,22 +100,22 @@ const StudentLookup = ({ setStudentData }) => {
 
       {loading && <Typography mt={2}>Loading student...</Typography>}
 
-      {localStudentData && localStudentData.student_ID && (
+      {localStudentData && localStudentData.Student_ID && (
         <Paper elevation={3} sx={{ padding: 3, mt: 4 }}>
           <Typography variant="h5" gutterBottom>Student Details</Typography>
           <Divider sx={{ mb: 2 }} />
 
           <Stack direction="row" spacing={2} useFlexGap flexWrap="nowrap">
-            <TextField disabled variant="filled" label="Student ID" value={localStudentData.student_ID} sx={{ width: 180 }} />
-            <TextField disabled variant="filled" label="First Name" value={localStudentData.first_Name} sx={{ width: 180 }} />
-            <TextField disabled variant="filled" label="Last Name" value={localStudentData.last_Name} sx={{ width: 180 }} />
-            <TextField disabled variant="filled" label="Email" value={localStudentData.asU_Email_Adress} sx={{ width: 250 }} />
-            <TextField disabled variant="filled" label="Education Level" value={localStudentData.degree} sx={{ width: 150 }} />
+            <TextField disabled variant="filled" label="Student ID" value={localStudentData.Student_ID} sx={{ width: 180 }} />
+            <TextField disabled variant="filled" label="First Name" value={localStudentData.First_Name} sx={{ width: 180 }} />
+            <TextField disabled variant="filled" label="Last Name" value={localStudentData.Last_Name} sx={{ width: 180 }} />
+            <TextField disabled variant="filled" label="Email" value={localStudentData.ASU_Email_Adress} sx={{ width: 250 }} />
+            <TextField disabled variant="filled" label="Education Level" value={localStudentData.Degree} sx={{ width: 150 }} />
           </Stack>
 
           {remainingHours !== null && (
             <Typography mt={3} align="center" color={remainingHours > 0 ? 'success.main' : 'error'}>
-              {localStudentData.first_Name} {localStudentData.last_Name} has {remainingHours} hours/week {remainingHours > 0 ? 'available' : '— limit reached'}.
+              {localStudentData.First_Name} {localStudentData.Last_Name} has {remainingHours} hours/week {remainingHours > 0 ? 'available' : '— limit reached'}.
             </Typography>
           )}
         </Paper>

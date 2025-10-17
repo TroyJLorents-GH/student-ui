@@ -95,9 +95,9 @@ const ClassLookupCascade = ({ setClassDetails }) => {
             subject: selectedSubject,
             catalogNum: selectedCatalog,
             classNum: selectedClassNum,
-            location: data.location,
-            campus: data.campus,
-            acadCareer: data.acadCareer,
+            location: data.Location,
+            campus: data.Campus,
+            acadCareer: data.AcadCareer,
           };
           setLocalClassDetails(mergedDetails);
           if (setClassDetails) setClassDetails(mergedDetails);
@@ -207,7 +207,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
             label="Session"
             disabled
             variant="filled"
-            value={localClassDetails.session || ''}
+            value={localClassDetails.Session || ''}
             InputProps={{ readOnly: true }}
             sx={{ width: 100 }}
           />
@@ -221,7 +221,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
             label="Instructor ID"
             disabled
             variant="filled"
-            value={localClassDetails.instructorID || ''}
+            value={localClassDetails.InstructorID || ''}
             InputProps={{ readOnly: true }}
             sx={{ minWidth: 150 }}
           />
@@ -229,7 +229,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
             label="Instructor Name"
             disabled
             variant="filled"
-            value={`${localClassDetails.instructorFirstName || ''} ${localClassDetails.instructorLastName || ''}`}
+            value={`${localClassDetails.InstructorFirstName || ''} ${localClassDetails.InstructorLastName || ''}`}
             InputProps={{ readOnly: true }}
             sx={{ minWidth: 220 }}
           />
@@ -237,7 +237,7 @@ const ClassLookupCascade = ({ setClassDetails }) => {
             label="Instructor Email"
             disabled
             variant="filled"
-            value={localClassDetails.instructorEmail || ''}
+            value={localClassDetails.InstructorEmail || ''}
             InputProps={{ readOnly: true }}
             sx={{ minWidth: 250 }}
           />

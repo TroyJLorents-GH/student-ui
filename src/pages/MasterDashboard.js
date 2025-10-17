@@ -2,9 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import {
-  DataGrid
-} from '@mui/x-data-grid';
+import { DataGridPro } from '@mui/x-data-grid-pro';
 import {
   Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions,
   Button, FormGroup, FormControlLabel, Checkbox
@@ -133,30 +131,30 @@ export default function MasterDashboard() {
       })
       .then(data => {
         const mapped = data.map(r => ({
-          id: r.id,
-          studentName: `${r.first_Name} ${r.last_Name}`,
-          student_ID: r.student_ID,
-          position: r.position,
-          weeklyHours: r.weeklyHours,
-          fultonFellow: r.fultonFellow,
-          email: r.email,
-          educationLevel: r.educationLevel,
-          instructorName: `${r.instructorFirstName} ${r.instructorLastName}`,
-          subject: r.subject,
-          catalogNum: r.catalogNum,
-          classSession: r.classSession,
-          location: r.location,
-          campus: r.campus,
-          classNum: r.classNum,
+          id: r.Id,
+          studentName: `${r.First_Name ?? ''} ${r.Last_Name ?? ''}`.trim(),
+          student_ID: r.Student_ID,
+          position: r.Position,
+          weeklyHours: r.WeeklyHours,
+          fultonFellow: r.FultonFellow,
+          email: r.Email,
+          educationLevel: r.EducationLevel,
+          instructorName: `${r.InstructorFirstName ?? ''} ${r.InstructorLastName ?? ''}`.trim(),
+          subject: r.Subject,
+          catalogNum: r.CatalogNum,
+          classSession: r.ClassSession,
+          location: r.Location,
+          campus: r.Campus,
+          classNum: r.ClassNum,
           cum_gpa: r.cum_gpa,
           cur_gpa: r.cur_gpa,
-          costCenterKey: r.costCenterKey,
-          compensation: r.compensation,
-          position_Number: r.position_Number || '',
-          i9_Sent: r.i9_Sent,
-          ssN_Sent: r.ssN_Sent,
-          offer_Sent: r.offer_Sent,
-          offer_Signed: r.offer_Signed
+          costCenterKey: r.CostCenterKey,
+          compensation: r.Compensation,
+          position_Number: r.Position_Number || '',
+          i9_Sent: r.I9_Sent,
+          ssN_Sent: r.SSN_Sent,
+          offer_Sent: r.Offer_Sent,
+          offer_Signed: r.Offer_Signed
         }));
         setRows(mapped);
       })
@@ -203,7 +201,7 @@ export default function MasterDashboard() {
         <Typography variant="h5" gutterBottom>
           Master Dashboard
         </Typography>
-        <DataGrid
+        <DataGridPro
           sx={{
             '& .MuiDataGrid-cell': {
               textAlign: 'center',
@@ -225,6 +223,7 @@ export default function MasterDashboard() {
           showToolbar
           allowColumnReordering={true}
           processRowUpdate={handleRowUpdate}
+          headerFilters
           autoHeight
         />
       </Paper>

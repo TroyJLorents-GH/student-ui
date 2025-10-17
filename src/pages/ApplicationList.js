@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGridPro } from '@mui/x-data-grid-pro';
 import {
   Paper,
   Typography,
@@ -48,12 +48,12 @@ const ApplicationList = () => {
 
   const columns = [
     // { field: 'id', headerName: 'ID', headerAlign: 'center', width: 70 },
-    { field: 'name', headerName: 'Name', headerAlign: 'center', flex: 1 },
-    { field: 'email', headerName: 'Email', headerAlign: 'center', flex: 1.2 },
-    { field: 'asU10DigitID', headerName: 'ASU ID', headerAlign: 'center', width: 120 },
-    { field: 'degreeProgram', headerName: 'Degree Program', headerAlign: 'center', flex: 1.2 },
-    { field: 'graduateGPA', headerName: 'Grad GPA', headerAlign: 'center', width: 110 },
-    { field: 'undergraduateGPA', headerName: 'UG GPA', headerAlign: 'center', width: 110 },
+    { field: 'Name', headerName: 'Name', headerAlign: 'center', flex: 1 },
+    { field: 'Email', headerName: 'Email', headerAlign: 'center', flex: 1.2 },
+    { field: 'ASU10DigitID', headerName: 'ASU ID', headerAlign: 'center', width: 120 },
+    { field: 'DegreeProgram', headerName: 'Degree Program', headerAlign: 'center', flex: 1.2 },
+    { field: 'GraduateGPA', headerName: 'Grad GPA', headerAlign: 'center', width: 110 },
+    { field: 'UndergraduateGPA', headerName: 'UG GPA', headerAlign: 'center', width: 110 },
     // {
     //   field: 'expectedGraduation',
     //   headerName: 'Expected Grad',
@@ -61,14 +61,14 @@ const ApplicationList = () => {
     //   width: 140,
     //   valueFormatter: ({ value }) => formatDate(value)
     // },
-    { field: 'undergraduateInstitution', headerName: 'UG Institution', headerAlign: 'center', flex: 1 },
-    { field: 'positionsConsidered', headerName: 'Positions', headerAlign: 'center', width: 160 },
-    { field: 'hoursAvailable', headerName: 'Hours Available', headerAlign: 'center', width: 130 },
-    { field: 'preferredCourses', headerName: 'Preferred Courses', headerAlign: 'center', flex: 1 },
-    { field: 'programmingLanguage', headerName: ' Programming Languages', headerAlign: 'center', flex: 1 },
-    { field: 'dissertationProposalStatus', headerName: 'Thesis Proposal', headerAlign: 'center', width: 180 },
+    { field: 'UndergraduateInstitution', headerName: 'UG Institution', headerAlign: 'center', flex: 1 },
+    { field: 'PositionsConsidered', headerName: 'Positions', headerAlign: 'center', width: 160 },
+    { field: 'HoursAvailable', headerName: 'Hours Available', headerAlign: 'center', width: 130 },
+    { field: 'PreferredCourses', headerName: 'Preferred Courses', headerAlign: 'center', flex: 1 },
+    { field: 'ProgrammingLanguage', headerName: ' Programming Languages', headerAlign: 'center', flex: 1 },
+    { field: 'DissertationProposalStatus', headerName: 'Thesis Proposal', headerAlign: 'center', width: 180 },
     {
-      field: 'expectedGraduation',
+      field: 'ExpectedGraduation',
         headerName: 'Expected Grad',
         headerAlign: 'center',
         width: 140,
@@ -79,7 +79,7 @@ const ApplicationList = () => {
         }
     },
     {
-      field: 'transcriptUrl',
+      field: 'TranscriptUrl',
       headerName: 'Transcript',
       headerAlign: 'center',
       width: 130,
@@ -89,7 +89,7 @@ const ApplicationList = () => {
         ) : 'N/A'
     },
     {
-      field: 'resumeUrl',
+      field: 'ResumeUrl',
       headerName: 'Resume',
       headerAlign: 'center',
       width: 120,
@@ -135,15 +135,15 @@ const ApplicationList = () => {
       )}
 
       <div style={{ height: 'fit-content', width: '100%' }}>
-        <DataGrid
+        <DataGridPro
           rows={filteredApplications}
           columns={columns}
-          getRowId={(row) => row.id}
+          getRowId={(row) => row.Id}
           pageSize={20}
           rowsPerPageOptions={[10, 20, 50]}
           loading={loading}
           showToolbar
-          components={{ Toolbar: GridToolbar }}
+          headerFilters
           sx={{
             '& .MuiDataGrid-columnHeaderTitle': {
               fontWeight: 'bold',
