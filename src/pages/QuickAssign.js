@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Box, Container, Typography, Paper } from '@mui/material';
 import StudentLookup from '../components/StudentLookup';
 import ClassLookupCascade from '../components/ClassLookupCascade';
 import AssignmentAdder from '../components/AssignmentAdder';
-
-const styles = {
-  container: { maxWidth: '960px', margin: '0 auto', padding: '20px' },
-  header: { fontSize: '28px', fontWeight: 'bold', marginBottom: '30px', color: '#333', textAlign: 'center' },
-  section: { marginBottom: '40px', backgroundColor: '#ffffff', padding: '20px',
-    borderRadius: '8px', boxShadow: '0 0 8px rgba(0,0,0,0.1)', width: '100%' }
-};
 
 export default function QuickAssign() {
   const [studentData, setStudentData] = useState(null);
@@ -28,19 +22,33 @@ export default function QuickAssign() {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.header}>Quick Assign</h2>
-      <div style={styles.section}>
+    <Container maxWidth="xl" sx={{ py: { xs: 2, sm: 2, md: 3 } }}>
+      <Typography
+        variant="h4"
+        sx={{
+          fontWeight: 'bold',
+          mb: { xs: 2, md: 3 },
+          color: '#333',
+          textAlign: 'center',
+          fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+        }}
+      >
+        Quick Assign
+      </Typography>
+
+      <Paper elevation={3} sx={{ p: { xs: 2, sm: 2.5, md: 3 }, mb: { xs: 2, md: 3 } }}>
         <StudentLookup key={`student-${formResetKey}`} setStudentData={setStudentData} />
-      </div>
-      <div style={styles.section}>
+      </Paper>
+
+      <Paper elevation={3} sx={{ p: { xs: 2, sm: 2.5, md: 3 }, mb: { xs: 2, md: 3 } }}>
         <ClassLookupCascade key={`class-${formResetKey}`} setClassDetails={setClassDetails} />
-      </div>
+      </Paper>
+
       {studentData && (
-        <div style={styles.section}>
+        <Box>
           <AssignmentAdder studentData={studentData} classDetails={classDetails || {}} onReset={onReset} />
-        </div>
+        </Box>
       )}
-    </div>
+    </Container>
   );
 }

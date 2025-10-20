@@ -3,7 +3,6 @@ import {
   Box, Typography, Grid, FormControl, InputLabel, Select, MenuItem,
   Paper, Snackbar, Alert, CircularProgress, Divider, TextField
 } from '@mui/material';
-import { Stack } from '@mui/material';
 
 const ClassLookupCascade = ({ setClassDetails }) => {
   const [selectedTerm, setSelectedTerm] = useState('');
@@ -193,55 +192,59 @@ const ClassLookupCascade = ({ setClassDetails }) => {
         <Paper elevation={3} sx={{ padding: 3, mt: 4 }}>
         <Typography variant="h5" gutterBottom>Class Details</Typography>
         <Divider sx={{ mb: 2 }} />
-      
-        <Stack direction="row" spacing={2} useFlexGap flexWrap="nowrap">
-        <TextField
-            label="Class"
-            disabled
-            variant="filled"
-            value={`${localClassDetails.subject || ''} - ${localClassDetails.catalogNum || ''}`}
-            InputProps={{ readOnly: true }} // Dont need this as it is already disabled
-            sx={{ minWidth: 100 }}
-          />
-          <TextField
-            label="Session"
-            disabled
-            variant="filled"
-            value={localClassDetails.Session || ''}
-            InputProps={{ readOnly: true }}
-            sx={{ width: 100 }}
-          />
-          {/* <TextField
-            label="Term"
-            value={localClassDetails.term || ''}
-            InputProps={{ readOnly: true }}
-            sx={{ width: 100 }}
-          /> */}
-          <TextField
-            label="Instructor ID"
-            disabled
-            variant="filled"
-            value={localClassDetails.InstructorID || ''}
-            InputProps={{ readOnly: true }}
-            sx={{ minWidth: 150 }}
-          />
-          <TextField
-            label="Instructor Name"
-            disabled
-            variant="filled"
-            value={`${localClassDetails.InstructorFirstName || ''} ${localClassDetails.InstructorLastName || ''}`}
-            InputProps={{ readOnly: true }}
-            sx={{ minWidth: 220 }}
-          />
-          <TextField
-            label="Instructor Email"
-            disabled
-            variant="filled"
-            value={localClassDetails.InstructorEmail || ''}
-            InputProps={{ readOnly: true }}
-            sx={{ minWidth: 250 }}
-          />
-        </Stack>
+
+        <Grid container spacing={2} flexWrap="nowrap">
+          <Grid item xs={12} sm={6} md={2.4}>
+            <TextField
+              label="Class"
+              disabled
+              variant="filled"
+              value={`${localClassDetails.subject || ''} - ${localClassDetails.catalogNum || ''}`}
+              InputProps={{ readOnly: true }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={1.6}>
+            <TextField
+              label="Session"
+              disabled
+              variant="filled"
+              value={localClassDetails.Session || ''}
+              InputProps={{ readOnly: true }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <TextField
+              label="Instructor ID"
+              disabled
+              variant="filled"
+              value={localClassDetails.InstructorID || ''}
+              InputProps={{ readOnly: true }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={2.5}>
+            <TextField
+              label="Instructor Name"
+              disabled
+              variant="filled"
+              value={`${localClassDetails.InstructorFirstName || ''} ${localClassDetails.InstructorLastName || ''}`}
+              InputProps={{ readOnly: true }}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={3.5}>
+            <TextField
+              label="Instructor Email"
+              disabled
+              variant="filled"
+              value={localClassDetails.InstructorEmail || ''}
+              InputProps={{ readOnly: true }}
+              fullWidth
+            />
+          </Grid>
+        </Grid>
       </Paper>
       )}
 

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box, Button, Grid, Paper, TextField, Typography,
-  Snackbar, Alert, Divider, Stack
+  Snackbar, Alert, Divider
 } from '@mui/material';
 
 
@@ -105,13 +105,23 @@ const StudentLookup = ({ setStudentData }) => {
           <Typography variant="h5" gutterBottom>Student Details</Typography>
           <Divider sx={{ mb: 2 }} />
 
-          <Stack direction="row" spacing={2} useFlexGap flexWrap="nowrap">
-            <TextField disabled variant="filled" label="Student ID" value={localStudentData.Student_ID} sx={{ width: 180 }} />
-            <TextField disabled variant="filled" label="First Name" value={localStudentData.First_Name} sx={{ width: 180 }} />
-            <TextField disabled variant="filled" label="Last Name" value={localStudentData.Last_Name} sx={{ width: 180 }} />
-            <TextField disabled variant="filled" label="Email" value={localStudentData.ASU_Email_Adress} sx={{ width: 250 }} />
-            <TextField disabled variant="filled" label="Education Level" value={localStudentData.Degree} sx={{ width: 150 }} />
-          </Stack>
+          <Grid container spacing={2} flexWrap="nowrap" >
+            <Grid item xs={12} sm={6} md={2.4} >
+              <TextField disabled variant="filled" label="Student ID" value={localStudentData.Student_ID} fullWidth />
+            </Grid>
+            <Grid item xs={12} sm={6} md={2.4}>
+              <TextField disabled variant="filled" label="First Name" value={localStudentData.First_Name} fullWidth />
+            </Grid>
+            <Grid item xs={12} sm={6} md={2.4}>
+              <TextField disabled variant="filled" label="Last Name" value={localStudentData.Last_Name} fullWidth />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <TextField disabled variant="filled" label="Email" value={localStudentData.ASU_Email_Adress} fullWidth />
+            </Grid>
+            <Grid item xs={12} sm={6} md={2.4}>
+              <TextField disabled variant="filled" label="Education Level" value={localStudentData.Degree} fullWidth />
+            </Grid>
+          </Grid>
 
           {remainingHours !== null && (
             <Typography mt={3} align="center" color={remainingHours > 0 ? 'success.main' : 'error'}>

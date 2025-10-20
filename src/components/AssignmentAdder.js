@@ -151,36 +151,44 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle1" gutterBottom>Student Info</Typography>
           <Paper elevation={1} sx={{ p: 2 }}>
-            <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: 2 }}>
-              <TextField 
-                label="Student ID" 
-                disabled
-                value={studentData.Student_ID}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 160 }} 
-              />
-              <TextField 
-                label="Name" 
-                disabled
-                value={`${studentData.First_Name} ${studentData.Last_Name}`}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 200 }} 
-              />
-              <TextField
-                label="Email" 
-                disabled
-                value={studentData.ASU_Email_Adress}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 250 }} 
-              />
-              <TextField 
-                label="Education Level" 
-                disabled
-                value={studentData.Degree}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 160 }} 
-              />
-            </Box>
+            <Grid container spacing={2} flexWrap="nowrap">
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  label="Student ID"
+                  disabled
+                  value={studentData.Student_ID}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  label="Name"
+                  disabled
+                  value={`${studentData.First_Name} ${studentData.Last_Name}`}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  label="Email"
+                  disabled
+                  value={studentData.ASU_Email_Adress}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  label="Education Level"
+                  disabled
+                  value={studentData.Degree}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
           </Paper>
         </Box>
       )}
@@ -190,50 +198,62 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle1" gutterBottom>Class Info</Typography>
           <Paper elevation={1} sx={{ p: 2 }}>
-            <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: 2 }}>
-              <TextField 
-                label="Course" 
-                disabled
-                value={`${classDetails.subject} - ${classDetails.catalogNum}`}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 180 }} 
-              />
-              <TextField 
-                label="Class #"
-                disabled
-                value={classDetails.classNum}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 120 }} 
-              />
-              <TextField 
-                label="Session" 
-                disabled
-                value={classDetails.Session} 
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 100 }} 
-              />
-              <TextField 
-                label="Location" 
-                disabled
-                value={classDetails.Location} 
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 200 }} 
-              />
-              <TextField 
-                label="Instructor" 
-                disabled
-                value={`${classDetails.InstructorFirstName} ${classDetails.InstructorLastName}`}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 'auto' }} 
-              />
-              <TextField 
-                label="Instructor Email" 
-                disabled
-                value={classDetails.InstructorEmail}
-                InputLabelProps={{ shrink: true }} 
-                sx={{ width: 300 }} 
-              />
-            </Box>
+            <Grid container spacing={2} flexWrap="nowrap">
+              <Grid item xs={12} sm={4} md={2}>
+                <TextField
+                  label="Course"
+                  disabled
+                  value={`${classDetails.subject} - ${classDetails.catalogNum}`}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={6} sm={3} md={1.5}>
+                <TextField
+                  label="Class #"
+                  disabled
+                  value={classDetails.classNum}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={6} sm={3} md={1.5}>
+                <TextField
+                  label="Session"
+                  disabled
+                  value={classDetails.Session}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} md={2}>
+                <TextField
+                  label="Location"
+                  disabled
+                  value={classDetails.Location}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={2.5}>
+                <TextField
+                  label="Instructor"
+                  disabled
+                  value={`${classDetails.InstructorFirstName} ${classDetails.InstructorLastName}`}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={2.5}>
+                <TextField
+                  label="Instructor Email"
+                  disabled
+                  value={classDetails.InstructorEmail}
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
           </Paper>
         </Box>
       )}

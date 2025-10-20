@@ -153,12 +153,12 @@ export default function StudentSummaryPage() {
         id: a.AssignmentId || a.Id,
         position: a.Position,
         weeklyHours: a.WeeklyHours,
-        classSession: a.ClassSession,
-        subject: a.Subject,
-        catalogNum: a.CatalogNum,
-        classNum: a.ClassNum,
-        acadCareer: a.AcadCareer,
-        instructorName: a.InstructorName,
+        classSession: a.ClassSession || a.Session,
+        subject: a.Subject || a.subject || '',
+        catalogNum: a.CatalogNum || a.catalogNum || '',
+        classNum: a.ClassNum || a.classNum,
+        acadCareer: a.AcadCareer || a.acadCareer || '',
+        instructorName: a.InstructorName || a.instructorName || '',
       }));
       setRows(mappedRows);
       originalRowsRef.current = mappedRows;
@@ -225,11 +225,20 @@ export default function StudentSummaryPage() {
         const res = await fetch(`${baseUrl}/api/Class/details/${newRow.classNum}?term=${term}`);
         if (!res.ok) throw new Error("Class not found");
         const classInfo = await res.json();
-        updatedRow.subject = classInfo.Subject;
-        updatedRow.catalogNum = classInfo.CatalogNum;
-        updatedRow.acadCareer = classInfo.AcadCareer;
-        updatedRow.classSession = classInfo.Session;
-        updatedRow.instructorName = `${classInfo.InstructorFirstName} ${classInfo.InstructorLastName}`;
+
+        // Handle both uppercase and lowercase field names from API
+        updatedRow.subject = classInfo.Subject || classInfo.subject || '';
+        updatedRow.catalogNum = classInfo.CatalogNum || classInfo.catalogNum || '';
+        updatedRow.acadCareer = classInfo.AcadCareer || classInfo.acadCareer || '';
+        updatedRow.classSession = classInfo.Session || classInfo.session || '';
+        updatedRow.instructorName = classInfo.InstructorFirstName && classInfo.InstructorLastName
+          ? `${classInfo.InstructorFirstName} ${classInfo.InstructorLastName}`
+          : (classInfo.instructorFirstName && classInfo.instructorLastName
+              ? `${classInfo.instructorFirstName} ${classInfo.instructorLastName}`
+              : '');
+
+        console.log('Class details fetched:', classInfo);
+        console.log('Updated row:', updatedRow);
       } catch (e) {
         setSnackbar({ open: true, message: `Class lookup failed: ${e.message}`, severity: "error" });
       }
@@ -246,7 +255,7 @@ export default function StudentSummaryPage() {
       const baseUrl = process.env.REACT_APP_API_BASE;
       // 1. Find edited rows: changed position/hours/classnum (ignore unedited)
       const editedRows = rows.filter(row => row._edited).map(row => ({
-        id: row.id,
+        Id: row.id,
         Position: row.position,
         WeeklyHours: row.weeklyHours,
         ClassNum: row.classNum
@@ -258,9 +267,9 @@ export default function StudentSummaryPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          updates: editedRows,
-          deletes,
-          studentId: summary.Student_ID || summary.ASUrite
+          Updates: editedRows,
+          Deletes: deletes,
+          StudentId: summary.Student_ID?.toString() || summary.ASUrite
         })
       });
 

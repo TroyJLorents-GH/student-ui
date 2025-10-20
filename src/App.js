@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -16,13 +17,16 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const sidebarWidth = collapsed ? 60 : 250;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Mobile < 900px
+
+  const sidebarWidth = collapsed ? 60 : 150;
 
   const handleLogin = () => setIsAuthenticated(true);
   const handleLogout = () => setIsAuthenticated(false);
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: '#FAFAFA' }}>
       {/* Sidebar */}
       <Navbar
         collapsed={collapsed}
@@ -32,14 +36,20 @@ function App() {
       />
 
       {/* Main Content */}
-      <div style={{
-        flex: 1,
-        marginLeft: sidebarWidth,
-        transition: 'margin-left 0.2s',
-        padding: 24,
-        backgroundColor: '#FAFAFA',
-        minHeight: '100vh'
-      }}>
+      <Box
+        component="main"
+        sx={{
+          flex: 1,
+          marginLeft: isMobile ? 0 : `${sidebarWidth}px`,
+          transition: 'margin-left 0.2s',
+          padding: { xs: 2, sm: 3, md: 4 }, // Responsive padding: 16px mobile, 24px tablet, 32px desktop
+          paddingTop: isMobile ? 8 : { xs: 2, sm: 3, md: 4 }, // Extra top padding on mobile for hamburger button
+          backgroundColor: '#FAFAFA',
+          minHeight: '100vh',
+          width: '100%',
+          boxSizing: 'border-box',
+        }}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/quick-assign" element={<QuickAssign />} />
@@ -66,8 +76,8 @@ function App() {
             }
           />
         </Routes>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
