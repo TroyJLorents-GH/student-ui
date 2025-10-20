@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { LicenseInfo } from '@mui/x-license-pro';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -12,6 +13,9 @@ import BulkUploadAssignments from './pages/BulkUploadAssignments';
 import ManageStudentAssignments from './pages/ManageStudentAssignments';
 import StudentSummaryPage from './pages/StudentSummaryPage';
 import StudentAssignmentDashboard from './pages/StudentAssignmentDashboard';
+
+// Set MUI X Pro License Key
+LicenseInfo.setLicenseKey(process.env.REACT_APP_MUI_LICENSE_KEY || '');
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
