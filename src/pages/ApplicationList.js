@@ -145,6 +145,7 @@ const ApplicationList = () => {
           showToolbar
           headerFilters
           sx={{
+            '& .MuiDataGrid-toolbar': { justifyContent: 'flex-start' },
             '& .MuiDataGrid-columnHeaderTitle': {
               fontWeight: 'bold',
               fontSize: '1.05rem'

@@ -115,6 +115,7 @@ const ManageStudentAssignments = () => {
         <DataGridPro
           sx={{
             '& .MuiDataGrid-cell': { textAlign: 'center' },
+            '& .MuiDataGrid-toolbar': { justifyContent: 'flex-start' },
             '& .MuiDataGrid-columnHeaderTitle': { fontWeight: 'bold', fontSize: '1.1em' },
             '& .highlight-cell': {
               backgroundColor: '#fff9c4',

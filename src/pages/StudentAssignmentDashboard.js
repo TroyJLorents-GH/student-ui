@@ -92,6 +92,7 @@ export default function StudentAssignmentDashboard() {
       </Typography>
       <DataGridPro
         sx={{
+          '& .MuiDataGrid-toolbar': { justifyContent: 'flex-start' },
           '& .MuiDataGrid-cell': { textAlign: 'center' },
           '& .MuiDataGrid-columnHeaderTitle': { fontWeight: 'bold', fontSize: '1.05em' },
         }}

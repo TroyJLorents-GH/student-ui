@@ -206,6 +206,7 @@ export default function MasterDashboard() {
             '& .MuiDataGrid-cell': {
               textAlign: 'center',
             },
+            '& .MuiDataGrid-toolbar': { justifyContent: 'flex-start' },
             '& .MuiDataGrid-columnHeaderTitle': {
               fontWeight: 'bold',
               fontSize: '1.1em',
