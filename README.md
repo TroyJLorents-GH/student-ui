@@ -7,8 +7,6 @@
 
 
 
-
-
 ### About Me
 I'm Troy Lorents, a full-stack engineer with 7+ years of experience building applications that solve real-world problems. This project demonstrates my ability to manage a secure, scalable, and user-friendly system from front to back.
 
