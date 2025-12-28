@@ -24,7 +24,7 @@ function App() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Mobile < 900px
 
-  const sidebarWidth = collapsed ? 60 : 150;
+  const sidebarWidth = collapsed ? 60 : 120;
 
   const handleLogin = () => setIsAuthenticated(true);
   const handleLogout = () => setIsAuthenticated(false);

@@ -87,6 +87,7 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
 
     const payload = {
       Student_ID: studentData.Student_ID,
+      ASUrite: studentData.ASUrite,
       Position: position,
       Email: studentData.ASU_Email_Adress,
       First_Name: studentData.First_Name,

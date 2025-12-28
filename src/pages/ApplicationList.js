@@ -47,42 +47,36 @@ const ApplicationList = () => {
     // };
 
   const columns = [
-    // { field: 'id', headerName: 'ID', headerAlign: 'center', width: 70 },
-    { field: 'Name', headerName: 'Name', headerAlign: 'center', flex: 1 },
-    { field: 'Email', headerName: 'Email', headerAlign: 'center', flex: 1.2 },
-    { field: 'ASU10DigitID', headerName: 'ASU ID', headerAlign: 'center', width: 120 },
-    { field: 'DegreeProgram', headerName: 'Degree Program', headerAlign: 'center', flex: 1.2 },
-    { field: 'GraduateGPA', headerName: 'Grad GPA', headerAlign: 'center', width: 110 },
-    { field: 'UndergraduateGPA', headerName: 'UG GPA', headerAlign: 'center', width: 110 },
-    // {
-    //   field: 'expectedGraduation',
-    //   headerName: 'Expected Grad',
-    //   headerAlign: 'center',
-    //   width: 140,
-    //   valueFormatter: ({ value }) => formatDate(value)
-    // },
-    { field: 'UndergraduateInstitution', headerName: 'UG Institution', headerAlign: 'center', flex: 1 },
-    { field: 'PositionsConsidered', headerName: 'Positions', headerAlign: 'center', width: 160 },
-    { field: 'HoursAvailable', headerName: 'Hours Available', headerAlign: 'center', width: 130 },
-    { field: 'PreferredCourses', headerName: 'Preferred Courses', headerAlign: 'center', flex: 1 },
-    { field: 'ProgrammingLanguage', headerName: ' Programming Languages', headerAlign: 'center', flex: 1 },
-    { field: 'DissertationProposalStatus', headerName: 'Thesis Proposal', headerAlign: 'center', width: 180 },
+    { field: 'Name', headerName: 'Name', headerAlign: 'center', flex: 1, minWidth: 120 },
+    { field: 'Email', headerName: 'Email', headerAlign: 'center', flex: 1.2, minWidth: 180 },
+    { field: 'ASU10DigitID', headerName: 'ASU ID', headerAlign: 'center', flex: 0.6, minWidth: 100 },
+    { field: 'DegreeProgram', headerName: 'Degree Program', headerAlign: 'center', flex: 1.2, minWidth: 150 },
+    { field: 'GraduateGPA', headerName: 'Grad GPA', headerAlign: 'center', flex: 0.5, minWidth: 100 },
+    { field: 'UndergraduateGPA', headerName: 'UG GPA', headerAlign: 'center', flex: 0.5, minWidth: 100 },
+    { field: 'UndergraduateInstitution', headerName: 'UG Institution', headerAlign: 'center', flex: 1, minWidth: 130 },
+    { field: 'PositionsConsidered', headerName: 'Positions', headerAlign: 'center', flex: 0.8, minWidth: 130 },
+    { field: 'HoursAvailable', headerName: 'Hours Available', headerAlign: 'center', flex: 0.6, minWidth: 110 },
+    { field: 'PreferredCourses', headerName: 'Preferred Courses', headerAlign: 'center', flex: 1, minWidth: 150 },
+    { field: 'ProgrammingLanguage', headerName: ' Programming Languages', headerAlign: 'center', flex: 1, minWidth: 150 },
+    { field: 'DissertationProposalStatus', headerName: 'Thesis Proposal', headerAlign: 'center', flex: 0.8, minWidth: 130 },
     {
       field: 'ExpectedGraduation',
-        headerName: 'Expected Grad',
-        headerAlign: 'center',
-        width: 140,
-        renderCell: (params) => {
-          const date = new Date(params.value);
-          if (isNaN(date.getTime())) return 'Invalid Date';
-          return `${date.getMonth() + 1}/${date.getFullYear()}`;
-        }
+      headerName: 'Expected Grad',
+      headerAlign: 'center',
+      flex: 0.6,
+      minWidth: 120,
+      renderCell: (params) => {
+        const date = new Date(params.value);
+        if (isNaN(date.getTime())) return 'Invalid Date';
+        return `${date.getMonth() + 1}/${date.getFullYear()}`;
+      }
     },
     {
       field: 'TranscriptUrl',
       headerName: 'Transcript',
       headerAlign: 'center',
-      width: 130,
+      flex: 0.5,
+      minWidth: 100,
       renderCell: (params) =>
         params.value ? (
           <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
@@ -92,7 +86,8 @@ const ApplicationList = () => {
       field: 'ResumeUrl',
       headerName: 'Resume',
       headerAlign: 'center',
-      width: 120,
+      flex: 0.5,
+      minWidth: 100,
       renderCell: (params) =>
         params.value ? (
           <a href={params.value} target="_blank" rel="noopener noreferrer">View</a>
