@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography, Paper } from '@mui/material';
+import { Box, Container, Typography, Paper, Stepper, Step, StepLabel } from '@mui/material';
 import StudentLookup from '../components/StudentLookup';
 import ClassLookupCascade from '../components/ClassLookupCascade';
 import AssignmentAdder from '../components/AssignmentAdder';
+
+const steps = ['Lookup Student', 'Select Class', 'Create Assignment'];
 
 export default function QuickAssign() {
   const [studentData, setStudentData] = useState(null);
@@ -21,6 +23,13 @@ export default function QuickAssign() {
     setFormResetKey(prev => prev + 1);
   };
 
+  // Determine active step
+  const getActiveStep = () => {
+    if (!studentData) return 0;
+    if (!classDetails) return 1;
+    return 2;
+  };
+
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 2, sm: 2, md: 3 } }}>
       <Typography
@@ -35,6 +44,17 @@ export default function QuickAssign() {
       >
         Quick Assign
       </Typography>
+
+      {/* Stepper */}
+      <Paper elevation={1} sx={{ p: 2, mb: 3, borderRadius: 2 }}>
+        <Stepper activeStep={getActiveStep()} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Paper>
 
       <Paper elevation={3} sx={{ p: { xs: 2, sm: 2.5, md: 3 }, mb: { xs: 2, md: 3 } }}>
         <StudentLookup key={`student-${formResetKey}`} setStudentData={setStudentData} />

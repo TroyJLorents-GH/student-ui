@@ -3,8 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box, Button, Grid, Paper, TextField, Typography,
-  Snackbar, Alert, Divider
+  Snackbar, Alert, Divider, Stack, AlertTitle, Card, CardContent, LinearProgress
 } from '@mui/material';
+
+// Helper function to get color based on remaining hours
+const getHoursColor = (remaining) => {
+  if (remaining === 0) return { main: '#d32f2f', light: '#ffebee', text: '#c62828' }; // Red
+  if (remaining <= 10) return { main: '#f57c00', light: '#fff3e0', text: '#e65100' }; // Orange
+  return { main: '#2e7d32', light: '#e8f5e9', text: '#1b5e20' }; // Green
+};
+
+// Calculate progress percentage (hours used out of 20)
+const getProgressValue = (remaining) => ((20 - remaining) / 20) * 100;
 
 
 const StudentLookup = ({ setStudentData }) => {
@@ -124,9 +134,58 @@ const StudentLookup = ({ setStudentData }) => {
           </Grid>
 
           {remainingHours !== null && (
-            <Typography mt={3} align="center" color={remainingHours > 0 ? 'success.main' : 'error'}>
-              {localStudentData.First_Name} {localStudentData.Last_Name} has {remainingHours} hours/week {remainingHours > 0 ? 'available' : '— limit reached'}.
-            </Typography>
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'bold', textAlign: 'center' }}>
+                Work Hours Available
+              </Typography>
+              <Stack direction="row" spacing={2} justifyContent="center">
+                {(() => {
+                  const colors = getHoursColor(remainingHours);
+                  return (
+                    <Card
+                      sx={{
+                        minWidth: 180,
+                        backgroundColor: colors.light,
+                        border: `2px solid ${colors.main}`,
+                        borderRadius: 2,
+                      }}
+                    >
+                      <CardContent sx={{ p: 1.5, '&:last-child': { pb: 1.5 } }}>
+                        <Typography variant="caption" sx={{ color: '#000', fontWeight: 600 }}>
+                          Total Remaining
+                        </Typography>
+                        <Typography variant="h4" sx={{ color: colors.text, fontWeight: 'bold', my: 0.5 }}>
+                          {remainingHours}h
+                        </Typography>
+                        <LinearProgress
+                          variant="determinate"
+                          value={getProgressValue(remainingHours)}
+                          sx={{
+                            height: 6,
+                            borderRadius: 3,
+                            backgroundColor: '#e0e0e0',
+                            '& .MuiLinearProgress-bar': {
+                              backgroundColor: colors.main,
+                              borderRadius: 3,
+                            },
+                          }}
+                        />
+                        <Typography variant="caption" sx={{ color: colors.text, fontSize: '0.7rem', fontWeight: 500 }}>
+                          of 20 hours/week
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  );
+                })()}
+              </Stack>
+            </Box>
+          )}
+
+          {remainingHours !== null && remainingHours === 0 && (
+            <Alert severity="error" sx={{ mt: 3 }}>
+              <AlertTitle>Cannot Assign Student</AlertTitle>
+              <strong>{localStudentData.First_Name} {localStudentData.Last_Name}</strong> has reached 20 hours and cannot be assigned to any additional positions.
+            </Alert>
           )}
         </Paper>
       )}

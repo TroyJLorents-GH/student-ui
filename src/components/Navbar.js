@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   Drawer,
   Box,
@@ -16,7 +16,7 @@ import { Menu, ChevronLeft, ChevronRight, Home, Users, LogIn, LogOut, Upload, La
 
 export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLogout }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md')); // Mobile < 900px
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const sidebarWidth = collapsed ? 60 : 250;
@@ -42,6 +42,18 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
         { to: null, icon: <LogOut size={22} />, label: 'Logout', onClick: onLogout },
       ];
 
+  const getItemSx = (isActive) => ({
+    color: '#fff',
+    padding: '14px 18px',
+    justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
+    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+    borderLeft: isActive ? '4px solid #fff' : '4px solid transparent',
+    fontWeight: isActive ? 900 : 'bold',
+    '&:hover': {
+      backgroundColor: isActive ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)',
+    },
+  });
+
   const drawerContent = (
     <Box
       sx={{
@@ -52,7 +64,6 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
         flexDirection: 'column',
       }}
     >
-      {/* Toggle button for desktop sidebar */}
       {!isMobile && (
         <IconButton
           onClick={() => setCollapsed((prev) => !prev)}
@@ -67,22 +78,15 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
         </IconButton>
       )}
 
-      {/* Navigation links */}
       <List sx={{ flex: 1, padding: 0 }}>
         {menuItems.map((item) => (
           <ListItem key={item.to} disablePadding>
             <ListItemButton
-              component={Link}
+              component={NavLink}
               to={item.to}
+              end={item.to === '/'}
               onClick={isMobile ? handleDrawerToggle : undefined}
-              sx={{
-                color: '#fff',
-                padding: '14px 18px',
-                justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                },
-              }}
+              sx={({ isActive }) => getItemSx(isActive)}
             >
               <ListItemIcon sx={{ color: '#fff', minWidth: collapsed && !isMobile ? 'auto' : 40 }}>
                 {item.icon}
@@ -92,7 +96,7 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
                   primary={item.label}
                   sx={{
                     '& .MuiTypography-root': {
-                      fontWeight: 'bold',
+                      fontWeight: 'inherit',
                       fontSize: 16
                     }
                   }}
@@ -102,23 +106,16 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
           </ListItem>
         ))}
 
-        {/* Authentication items */}
         {authItems.map((item, index) => (
           <ListItem key={item.to || `auth-${index}`} disablePadding>
             <ListItemButton
-              component={item.to ? Link : 'button'}
+              component={item.to ? NavLink : 'button'}
               to={item.to}
               onClick={item.onClick ? item.onClick : isMobile ? handleDrawerToggle : undefined}
-              sx={{
-                color: '#fff',
-                padding: '14px 18px',
-                justifyContent: collapsed && !isMobile ? 'center' : 'flex-start',
-                width: '100%',
-                textAlign: 'left',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                },
-              }}
+              sx={item.to
+                ? ({ isActive }) => ({ ...getItemSx(isActive), width: '100%', textAlign: 'left' })
+                : { ...getItemSx(false), width: '100%', textAlign: 'left' }
+              }
             >
               <ListItemIcon sx={{ color: '#fff', minWidth: collapsed && !isMobile ? 'auto' : 40 }}>
                 {item.icon}
@@ -128,7 +125,7 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
                   primary={item.label}
                   sx={{
                     '& .MuiTypography-root': {
-                      fontWeight: 'bold',
+                      fontWeight: 'inherit',
                       fontSize: 16
                     }
                   }}
@@ -143,7 +140,6 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
 
   return (
     <>
-      {/* Mobile: Hamburger menu button */}
       {isMobile && (
         <IconButton
           color="inherit"
@@ -166,15 +162,12 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
         </IconButton>
       )}
 
-      {/* Mobile: Temporary drawer */}
       {isMobile ? (
         <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better mobile performance
-          }}
+          ModalProps={{ keepMounted: true }}
           sx={{
             '& .MuiDrawer-paper': {
               width: 250,
@@ -186,7 +179,6 @@ export default function Navbar({ collapsed, setCollapsed, isAuthenticated, onLog
           {drawerContent}
         </Drawer>
       ) : (
-        // Desktop: Permanent sidebar
         <Drawer
           variant="permanent"
           sx={{

@@ -1,13 +1,79 @@
 /// ------------------ THIS WILL HAVE THE HR CHECKBOXES TO USE FOR I-9, OFFER LETTER SENT AND MORE -------------------------
 
-
-import React, { useState, useEffect } from 'react';
-import { DataGridPro } from '@mui/x-data-grid-pro';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  DataGridPro,
+  gridDensitySelector,
+  ToolbarButton,
+  useGridApiContext,
+  useGridSelector,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarQuickFilter,
+} from '@mui/x-data-grid-pro';
 import {
   Paper, Typography, Dialog, DialogTitle, DialogContent, DialogActions,
-  Button, FormGroup, FormControlLabel, Checkbox
+  Button, FormGroup, FormControlLabel, Checkbox, Box, Chip, Divider,
+  Tooltip, Menu, MenuItem, ListItemIcon, ListItemText
 } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn';
 
+const DENSITY_OPTIONS = [
+  { label: 'Compact density', value: 'compact' },
+  { label: 'Standard density', value: 'standard' },
+  { label: 'Comfortable density', value: 'comfortable' },
+];
+
+function CustomToolbar() {
+  const apiRef = useGridApiContext();
+  const density = useGridSelector(apiRef, gridDensitySelector);
+  const [densityMenuOpen, setDensityMenuOpen] = useState(false);
+  const densityMenuTriggerRef = useRef(null);
+
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarExport />
+      <GridToolbarQuickFilter />
+      <Tooltip title="Adjust row density">
+        <ToolbarButton
+          ref={densityMenuTriggerRef}
+          id="density-menu-trigger"
+          aria-controls="density-menu"
+          aria-haspopup="true"
+          aria-expanded={densityMenuOpen ? 'true' : undefined}
+          onClick={() => setDensityMenuOpen(true)}
+        >
+          <SettingsIcon fontSize="small" />
+        </ToolbarButton>
+      </Tooltip>
+      <Menu
+        id="density-menu"
+        anchorEl={densityMenuTriggerRef.current}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={densityMenuOpen}
+        onClose={() => setDensityMenuOpen(false)}
+        slotProps={{ list: { 'aria-labelledby': 'density-menu-trigger' } }}
+      >
+        {DENSITY_OPTIONS.map((option) => (
+          <MenuItem
+            key={option.value}
+            onClick={() => { apiRef.current.setDensity(option.value); setDensityMenuOpen(false); }}
+          >
+            <ListItemIcon>{density === option.value && <CheckIcon fontSize="small" />}</ListItemIcon>
+            <ListItemText>{option.label}</ListItemText>
+          </MenuItem>
+        ))}
+      </Menu>
+    </GridToolbarContainer>
+  );
+}
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -24,6 +90,7 @@ const usdPrice = {
 export default function MasterDashboard() {
   const [rows, setRows] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // Modal State
   const [modalOpen, setModalOpen] = useState(false);
@@ -37,7 +104,6 @@ export default function MasterDashboard() {
 
   const handleOpenModal = (row) => {
     setSelectedRow(row);
-    // TODO: fetch existing status for row if needed
     setReviewStatus({
       i9_Sent: row.i9_Sent ?? false,
       ssN_Sent: row.ssN_Sent ?? false,
@@ -54,10 +120,7 @@ export default function MasterDashboard() {
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
-    setReviewStatus((prev) => ({
-      ...prev,
-      [name]: checked
-    }));
+    setReviewStatus((prev) => ({ ...prev, [name]: checked }));
   };
 
   const handleSaveReview = async () => {
@@ -66,22 +129,21 @@ export default function MasterDashboard() {
         position_Number: selectedRow.position_Number,
         ...reviewStatus
       };
-  
+
       const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment/${selectedRow.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-  
+
       if (!response.ok) throw new Error('Failed to update assignment');
-  
-      // ✅ Update the local state to reflect saved checkboxes
+
       setRows((prevRows) =>
         prevRows.map(row =>
           row.id === selectedRow.id ? { ...row, ...payload } : row
         )
       );
-  
+
       handleCloseModal();
     } catch (err) {
       console.error('Error updating assignment:', err);
@@ -89,22 +151,28 @@ export default function MasterDashboard() {
   };
 
   const columns = [
-    { field: 'studentName', headerName: 'Student Name', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 300 },
-    { field: 'student_ID', headerName: 'ASU ID', headerAlign: 'center', width: 140 },
-    { field: 'position', headerName: 'Position', headerAlign: 'center', width: 130 },
-    { field: 'weeklyHours', headerName: 'Hours', headerAlign: 'center', width: 80 },
-    { field: 'fultonFellow', headerName: 'Fulton Fellow', headerAlign: 'center', width: 120 },
-    { field: 'email', headerName: 'Email', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 250 },
+    { field: 'studentName', headerName: 'Student Name', headerAlign: 'center', flex: 1.5, minWidth: 150 },
+    { field: 'student_ID', headerName: 'ASU ID', headerAlign: 'center', flex: 0.9, minWidth: 110 },
+    { field: 'position', headerName: 'Position', headerAlign: 'center', flex: 1, minWidth: 110 },
+    { field: 'weeklyHours', headerName: 'Hours', headerAlign: 'center', flex: 0.5, minWidth: 70, type: 'number' },
+    { field: 'fultonFellow', headerName: 'Fulton Fellow', headerAlign: 'center', flex: 0.8, minWidth: 100 },
+    { field: 'email', headerName: 'Email', headerAlign: 'center', flex: 1.4, minWidth: 160 },
     { field: 'educationLevel', headerName: 'Education', headerAlign: 'center', width: 105 },
-    { field: 'instructorName', headerName: 'Instructor Name', headerAlign: 'center', flex: 1, minWidth: 150, maxWidth: 300 },
-    { field: 'subject', headerName: 'Subject', headerAlign: 'center', width: 100 },
-    { field: 'catalogNum', headerName: 'Catalog #', headerAlign: 'center', width: 100, type: 'number' },
+    { field: 'instructorName', headerName: 'Instructor Name', headerAlign: 'center', flex: 1.2, minWidth: 140 },
+    {
+      field: 'course',
+      headerName: 'Course',
+      headerAlign: 'center',
+      flex: 1,
+      minWidth: 120,
+      valueGetter: (value, row) => `${row.subject} - ${row.catalogNum}`,
+    },
     { field: 'classSession', headerName: 'Session', headerAlign: 'center', width: 100 },
+    { field: 'classNum', headerName: 'Class #', headerAlign: 'center', width: 100 },
     { field: 'location', headerName: 'Location', headerAlign: 'center', width: 120 },
     { field: 'campus', headerName: 'Campus', headerAlign: 'center', width: 110 },
-    { field: 'classNum', headerName: 'Class #', headerAlign: 'center', width: 110 },
-    { field: 'cur_gpa', headerName: 'Cur GPA', headerAlign: 'center', width: 110 },
-    { field: 'cum_gpa', headerName: 'Cum GPA', headerAlign: 'center', width: 110 },
+    { field: 'cur_gpa', headerName: 'Cur GPA', headerAlign: 'center', width: 100 },
+    { field: 'cum_gpa', headerName: 'Cum GPA', headerAlign: 'center', width: 100 },
     { field: 'costCenterKey', headerName: 'Cost Center', headerAlign: 'center', width: 140 },
     { field: 'compensation', headerName: 'Compensation', headerAlign: 'center', ...usdPrice },
     {
@@ -120,10 +188,11 @@ export default function MasterDashboard() {
         </Button>
       ),
     },
-    { field: 'position_Number', headerName: 'Position Number', headerAlign: 'center', width: 130, editable: true}
+    { field: 'position_Number', headerName: 'Position Number', headerAlign: 'center', width: 130, editable: true }
   ];
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API_BASE}/api/StudentClassAssignment`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to load assignments');
@@ -161,7 +230,8 @@ export default function MasterDashboard() {
       .catch(err => {
         console.error(err);
         setError(err.message);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const handleRowUpdate = async (newRow) => {
@@ -177,19 +247,22 @@ export default function MasterDashboard() {
           offer_Signed: newRow.offer_Signed ?? false
         })
       });
-  
+
       if (!response.ok) throw new Error('Failed to update position number');
-  
-      return newRow; // ✅ let DataGrid know update succeeded
+      return newRow;
     } catch (error) {
       console.error('Update failed:', error);
       throw error;
     }
   };
 
+  // Striped rows
+  const getRowClassName = (params) =>
+    params.indexRelativeToCurrentPage % 2 === 0 ? 'even-row' : 'odd-row';
+
   if (error) {
     return (
-      <Paper style={{ padding: 16, margin: 20 }}>
+      <Paper elevation={3} sx={{ p: 3, m: 2 }}>
         <Typography color="error">Error: {error}</Typography>
       </Paper>
     );
@@ -197,70 +270,99 @@ export default function MasterDashboard() {
 
   return (
     <>
-      <Paper elevation={0} style={{ height: 'fit-content', width: '99%', padding: 10 }}>
-        <Typography variant="h5" gutterBottom>
-          Master Dashboard
+      <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
+        {/* Header */}
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2, mb: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+              Master Dashboard
+            </Typography>
+            <Chip
+              label={`${rows.length} assignment${rows.length !== 1 ? 's' : ''}`}
+              size="small"
+              color="primary"
+              variant="outlined"
+            />
+          </Box>
+        </Box>
+
+        {/* Helper tip */}
+        <Typography variant="body2" sx={{ opacity: 0.7, mb: 2 }}>
+          Tip: Click the <b>Columns</b>{' '}
+          <ViewColumnIcon sx={{ fontSize: '1.25rem', verticalAlign: 'text-bottom', display: 'inline' }} />{' '}
+          button in the toolbar to show/hide fields. Click <b>Review</b> to update HR document status. Position Number is editable inline.
         </Typography>
-        <DataGridPro
-          sx={{
-            '& .MuiDataGrid-cell': {
-              textAlign: 'center',
-            },
-            '& .MuiDataGrid-toolbar': { justifyContent: 'flex-start' },
-            '& .MuiDataGrid-columnHeaderTitle': {
-              fontWeight: 'bold',
-              fontSize: '1.1em',
-            },
-          }}
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { pageSize: 25, page: 0},
-            },
-          }}
-          pageSizeOptions={[25, 50, 100]}
-          disableSelectionOnClick
-          showToolbar
-          allowColumnReordering={true}
-          processRowUpdate={handleRowUpdate}
-          headerFilters
-          autoHeight
-        />
+
+        <Divider sx={{ mb: 2 }} />
+
+        {/* DataGrid */}
+        <div style={{ height: 'calc(100vh - 260px)', width: '100%' }}>
+          <DataGridPro
+            sx={{
+              border: '1px solid #e0e0e0',
+              borderRadius: 1,
+              '& .MuiDataGrid-cell': { textAlign: 'center' },
+              '& .MuiDataGrid-toolbar': { justifyContent: 'flex-start' },
+              '& .MuiDataGrid-columnHeaderTitle': { fontWeight: 'bold', fontSize: '1.05em' },
+              '& .MuiDataGrid-columnHeaders': { backgroundColor: '#f9f9f9' },
+              '& .even-row': {
+                backgroundColor: '#fafafa',
+                '&:hover': { backgroundColor: '#f0f0f0' },
+              },
+              '& .odd-row': {
+                backgroundColor: '#ffffff',
+                '&:hover': { backgroundColor: '#f5f5f5' },
+              },
+              '& .MuiDataGrid-footerContainer': { borderTop: '2px solid #e0e0e0' },
+            }}
+            rows={rows}
+            columns={columns}
+            getRowClassName={getRowClassName}
+            loading={loading}
+            pagination
+            initialState={{
+              pagination: { paginationModel: { pageSize: 50, page: 0 } },
+              density: 'standard',
+              columns: {
+                columnVisibilityModel: {
+                  cum_gpa: false,
+                  cur_gpa: false,
+                  location: false,
+                  campus: false,
+                },
+              },
+            }}
+            pageSizeOptions={[25, 50, 100, { value: rows.length || 1, label: 'All' }]}
+            disableSelectionOnClick
+            allowColumnReordering
+            processRowUpdate={handleRowUpdate}
+            slots={{ toolbar: CustomToolbar }}
+            showToolbar
+            headerFilters
+          />
+        </div>
       </Paper>
 
-      {/* ✅ Modal for Review */}
+      {/* Modal for Review */}
       <Dialog open={modalOpen} onClose={handleCloseModal} maxWidth="sm" fullWidth>
         <DialogTitle>Review Assignment: {selectedRow?.studentName}</DialogTitle>
-        <DialogContent>
+        <DialogContent dividers>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox 
-                name="i9_Sent" 
-                checked={reviewStatus.i9_Sent} 
-                onChange={handleCheckboxChange} />}
-                label="I-9 Sent"
+              control={<Checkbox name="i9_Sent" checked={reviewStatus.i9_Sent} onChange={handleCheckboxChange} />}
+              label="I-9 Sent"
             />
             <FormControlLabel
-              control={<Checkbox 
-                name="ssN_Sent" 
-                checked={reviewStatus.ssN_Sent} 
-                onChange={handleCheckboxChange} />}
-                label="SSN Sent"
+              control={<Checkbox name="ssN_Sent" checked={reviewStatus.ssN_Sent} onChange={handleCheckboxChange} />}
+              label="SSN Sent"
             />
             <FormControlLabel
-              control={<Checkbox 
-                name="offer_Sent" 
-                checked={reviewStatus.offer_Sent} 
-                onChange={handleCheckboxChange} />}
-                label="Offer Sent"
+              control={<Checkbox name="offer_Sent" checked={reviewStatus.offer_Sent} onChange={handleCheckboxChange} />}
+              label="Offer Sent"
             />
             <FormControlLabel
-              control={<Checkbox 
-                name="offer_Signed" 
-                checked={reviewStatus.offer_Signed} 
-                onChange={handleCheckboxChange} />}
-                label="Offer Signed"
+              control={<Checkbox name="offer_Signed" checked={reviewStatus.offer_Signed} onChange={handleCheckboxChange} />}
+              label="Offer Signed"
             />
           </FormGroup>
         </DialogContent>

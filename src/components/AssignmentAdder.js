@@ -4,6 +4,7 @@ import {
   Checkbox, FormControlLabel, Button, Snackbar, Alert, Grid, Divider, Paper,
   Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { computeCostCenterKey } from '../utils/costCenterRules';
 
 
@@ -371,31 +372,171 @@ const AssignmentAdder = ({ studentData, classDetails, onReset }) => {
         </Alert>
       </Snackbar>
 
-      {/* ✅ Clean Confirmation Modal */}
-      <Dialog open={modalOpen} onClose={handleModalClose} fullWidth maxWidth="sm">
-        <DialogTitle>Assignment Confirmation</DialogTitle>
+      {/* Confirmation Modal */}
+      <Dialog
+        open={modalOpen}
+        onClose={handleModalClose}
+        fullWidth
+        maxWidth="md"
+        PaperProps={{
+          sx: {
+            '@media print': {
+              boxShadow: 'none',
+              margin: 0,
+              maxWidth: '100%'
+            }
+          }
+        }}
+      >
+        <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
+          <CheckCircleIcon sx={{ fontSize: 50, color: '#2e7d32', mb: 1, '@media print': { display: 'none' } }} />
+          <Typography variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+            Assignment Created Successfully
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5, '@media print': { display: 'none' } }}>
+            Print for your records
+          </Typography>
+        </DialogTitle>
         <DialogContent dividers>
           {assignmentSummary && (
             <Box>
-              <Typography><strong>Student:</strong> {assignmentSummary.First_Name} {assignmentSummary.Last_Name}</Typography>
-              <Typography><strong>Student ID:</strong> {assignmentSummary.Student_ID}</Typography>
-              <Typography><strong>Email:</strong> {assignmentSummary.Email}</Typography>
-              <Typography><strong>Education Level:</strong> {assignmentSummary.EducationLevel}</Typography>
-              <Typography><strong>Position:</strong> {assignmentSummary.Position}</Typography>
-              <Typography><strong>Class #:</strong> {assignmentSummary.ClassNum}</Typography>
-              <Typography><strong>Course:</strong> {assignmentSummary.Subject} {assignmentSummary.CatalogNum}</Typography>
-              <Typography><strong>Session:</strong> {assignmentSummary.ClassSession}</Typography>
-              <Typography><strong>Instructor:</strong> {assignmentSummary.InstructorFirstName} {assignmentSummary.InstructorLastName}</Typography>
-              <Typography><strong>Weekly Hours:</strong> {assignmentSummary.WeeklyHours}</Typography>
-              <Typography><strong>Fulton Fellow:</strong> {assignmentSummary.FultonFellow}</Typography>
-              <Typography><strong>Compensation:</strong> ${assignmentSummary.Compensation.toLocaleString()}</Typography>
-              <Typography><strong>Cost Center:</strong> {assignmentSummary.CostCenterKey}</Typography>
+              {/* Student Information */}
+              <Paper elevation={0} sx={{
+                p: 2,
+                mb: 2,
+                backgroundColor: '#f5f5f5',
+                WebkitPrintColorAdjust: 'exact',
+                printColorAdjust: 'exact'
+              }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1.5 }}>
+                  Student Information
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Name</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.First_Name} {assignmentSummary.Last_Name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Student ID</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.Student_ID}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Email</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.Email}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Education Level</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.EducationLevel}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+
+              {/* Course Information */}
+              <Paper elevation={0} sx={{
+                p: 2,
+                mb: 2,
+                backgroundColor: '#f5f5f5',
+                WebkitPrintColorAdjust: 'exact',
+                printColorAdjust: 'exact'
+              }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1.5 }}>
+                  Course Information
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Course</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.Subject} - {assignmentSummary.CatalogNum}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Class #</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.ClassNum}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Session</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.ClassSession}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Instructor</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.InstructorFirstName} {assignmentSummary.InstructorLastName}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+
+              {/* Assignment Details */}
+              <Paper elevation={0} sx={{
+                p: 2,
+                backgroundColor: '#f5f5f5',
+                WebkitPrintColorAdjust: 'exact',
+                printColorAdjust: 'exact'
+              }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1.5 }}>
+                  Assignment Details
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Position</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.Position}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Weekly Hours</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.WeeklyHours}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Fulton Fellow</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                      {assignmentSummary.FultonFellow}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="text.secondary">Compensation</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500, color: '#2e7d32' }}>
+                      ${assignmentSummary.Compensation.toLocaleString()}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="body2" color="text.secondary">Cost Center</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 500, fontFamily: 'monospace' }}>
+                      {assignmentSummary.CostCenterKey}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
             </Box>
           )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => window.print()} color="secondary">Print</Button>
-          <Button onClick={handleModalClose} variant="contained">Close</Button>
+        <DialogActions
+          sx={{
+            px: 3,
+            py: 2,
+            '@media print': { display: 'none' }
+          }}
+        >
+          <Button onClick={() => window.print()} color="secondary" variant="outlined">
+            Print
+          </Button>
+          <Button onClick={handleModalClose} variant="contained">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </Paper>
